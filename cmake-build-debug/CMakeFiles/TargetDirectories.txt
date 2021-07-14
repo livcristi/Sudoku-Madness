@@ -1,0 +1,4 @@
+C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/cmake-build-debug/CMakeFiles/Sudoku_Madness.dir
+C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/cmake-build-debug/CMakeFiles/Sudoku_Madness_autogen.dir

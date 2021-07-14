@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Sudoku_Madness"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="msvc8"/>
+		<Option virtualFolders="CMake Files\;CMake Files\Qt\;CMake Files\Qt\5.15.2\;CMake Files\Qt\5.15.2\mingw81_64\;CMake Files\Qt\5.15.2\mingw81_64\lib\;CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\;CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5\;CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Core\;CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Gui\;CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Widgets\;CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Charts\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\cmake-build-debug\Makefile VERBOSE=1 all"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Sudoku_Madness">
+				<Option output="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/cmake-build-debug/Sudoku_Madness.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add option="-DQT_CHARTS_LIB"/>
+					<Add directory="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/cmake-build-debug/Sudoku_Madness_autogen/include"/>
+					<Add directory="D:/Qt/5.15.2/mingw81_64/include"/>
+					<Add directory="D:/Qt/5.15.2/mingw81_64/include/QtCore"/>
+					<Add directory="D:/Qt/5.15.2/mingw81_64/./mkspecs/win32-g++"/>
+					<Add directory="D:/Qt/5.15.2/mingw81_64/include/QtGui"/>
+					<Add directory="D:/Qt/5.15.2/mingw81_64/include/QtANGLE"/>
+					<Add directory="D:/Qt/5.15.2/mingw81_64/include/QtWidgets"/>
+					<Add directory="D:/Qt/5.15.2/mingw81_64/include/QtCharts"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\VC\Tools\MSVC\14.16.27023\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\cmake-build-debug\Makefile VERBOSE=1 Sudoku_Madness"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Sudoku_Madness/fast">
+				<Option output="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/cmake-build-debug/Sudoku_Madness.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add option="-DQT_CHARTS_LIB"/>
+					<Add directory="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/cmake-build-debug/Sudoku_Madness_autogen/include"/>
+					<Add directory="D:/Qt/5.15.2/mingw81_64/include"/>
+					<Add directory="D:/Qt/5.15.2/mingw81_64/include/QtCore"/>
+					<Add directory="D:/Qt/5.15.2/mingw81_64/./mkspecs/win32-g++"/>
+					<Add directory="D:/Qt/5.15.2/mingw81_64/include/QtGui"/>
+					<Add directory="D:/Qt/5.15.2/mingw81_64/include/QtANGLE"/>
+					<Add directory="D:/Qt/5.15.2/mingw81_64/include/QtWidgets"/>
+					<Add directory="D:/Qt/5.15.2/mingw81_64/include/QtCharts"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\VC\Tools\MSVC\14.16.27023\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\cmake-build-debug\Makefile VERBOSE=1 Sudoku_Madness/fast"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\cmake-build-debug\Makefile VERBOSE=1 edit_cache"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\cmake-build-debug\Makefile VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Sudoku_Madness_autogen">
+				<Option working_dir="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\cmake-build-debug\Makefile VERBOSE=1 Sudoku_Madness_autogen"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/cmake-build-debug/Sudoku_Madness_autogen/mocs_compilation.cpp">
+			<Option target="Sudoku_Madness"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/domain/SudokuTable.cpp">
+			<Option target="Sudoku_Madness"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/domain/SudokuTable.h">
+			<Option target="Sudoku_Madness"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/starter.cpp">
+			<Option target="Sudoku_Madness"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5/Qt5Config.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5/Qt5ConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5/Qt5ModuleLocation.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Core/Qt5CoreConfig.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Core/Qt5CoreConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Core/Qt5CoreConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Core/Qt5CoreMacros.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Gui/Qt5Gui_QGifPlugin.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Gui/Qt5Gui_QICNSPlugin.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Gui/Qt5Gui_QICOPlugin.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Gui/Qt5Gui_QJpegPlugin.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Gui/Qt5Gui_QMinimalIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Gui/Qt5Gui_QOffscreenIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Gui/Qt5Gui_QSvgIconPlugin.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Gui/Qt5Gui_QSvgPlugin.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Gui/Qt5Gui_QTgaPlugin.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Gui/Qt5Gui_QTiffPlugin.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Gui/Qt5Gui_QTuioTouchPlugin.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Gui/Qt5Gui_QWbmpPlugin.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Gui/Qt5Gui_QWebpPlugin.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Gui/Qt5Gui_QWindowsDirect2DIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Gui/Qt5Gui_QWindowsIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Gui/Qt5Gui_QXdgDesktopPortalThemePlugin.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Widgets/Qt5Widgets_QWindowsVistaStylePlugin.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Charts/Qt5ChartsConfig.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Charts\"/>
+		</Unit>
+		<Unit filename="C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Charts/Qt5ChartsConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\Qt\5.15.2\mingw81_64\lib\cmake\Qt5Charts\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
