@@ -1,4 +1,0 @@
-C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/cmake-build-debug-mingw/CMakeFiles/Sudoku_Madness.dir
-C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/cmake-build-debug-mingw/CMakeFiles/edit_cache.dir
-C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/cmake-build-debug-mingw/CMakeFiles/rebuild_cache.dir
-C:/Users/tereb/OneDrive/Desktop/Sudoku-Madness/cmake-build-debug-mingw/CMakeFiles/Sudoku_Madness_autogen.dir
