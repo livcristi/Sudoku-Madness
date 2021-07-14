@@ -1,0 +1,15 @@
+//
+// Created by tereb on 14.07.2021.
+//
+
+#ifndef SUDOKU_MADNESS_SUDOKUBOARDFACTORY_H
+#define SUDOKU_MADNESS_SUDOKUBOARDFACTORY_H
+
+
+class SudokuBoardFactory
+{
+
+};
+
+
+#endif //SUDOKU_MADNESS_SUDOKUBOARDFACTORY_H

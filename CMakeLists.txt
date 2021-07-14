@@ -11,7 +11,22 @@ set(REQUIRED_LIBS Core Gui Widgets Charts)
 set(REQUIRED_LIBS_QUALIFIED Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Charts)
 
 add_executable(Sudoku_Madness
-        starter.cpp domain/SudokuBoard.cpp domain/SudokuBoard.h)
+        starter.cpp
+        domain/SudokuBoard.cpp
+        domain/SudokuBoard.h
+        domain/SudokuBoardFactory.cpp
+        domain/SudokuBoardFactory.h
+        repository/SudokuRepository.cpp
+        repository/SudokuRepository.h
+        generators/SudokuGenerator.cpp
+        generators/SudokuGenerator.h
+        generators/BacktrackingSudokuGenerator.cpp
+        generators/BacktrackingSudokuGenerator.h
+        testing/Tester.cpp
+        testing/Tester.h)
+
+file(COPY testing/data/testing_data.txt
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 if (NOT CMAKE_PREFIX_PATH)
     message(WARNING "CMAKE_PREFIX_PATH is not defined, you may need to set it "

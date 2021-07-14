@@ -3,9 +3,11 @@
 //
 
 #include <iostream>
+#include "testing/Tester.h"
 
 int main()
 {
-    std::cout << "Hello world!";
+    Tester::testAll();
+    std::cout << "Everything alright so far!";
     return 0;
 }
