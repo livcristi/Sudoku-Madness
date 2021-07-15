@@ -77,6 +77,9 @@ void Tester::testBktSudokuGenerator()
 
     auto newBoard = testGenerator->generateBoard(3);
 
+    assert(newBoard.getSize() == 9);
+    assert(SudokuUniqueChecker::checkBoard(newBoard));
+
     for(int i = 0; i < 9; ++i)
     {
         for(int j = 0; j < 9; ++j)
@@ -85,7 +88,6 @@ void Tester::testBktSudokuGenerator()
         }
         std::cout << "\n";
     }
-
 }
 
 void Tester::testSudokuChecker()

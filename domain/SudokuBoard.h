@@ -8,6 +8,8 @@
 #include <vector>
 #include <istream>
 #include <ostream>
+#define UNASSIGNED 0
+#define MISSING -1
 
 /// Class definition for the Sudoku Board used in the game
 
