@@ -41,6 +41,10 @@ public:
 
     friend std::istream & operator >> (std::istream & in, SudokuBoard & board);
     friend std::ostream & operator << (std::ostream & out, const SudokuBoard &board);
+
+    bool operator==(const SudokuBoard &rhs) const;
+
+    bool operator!=(const SudokuBoard &rhs) const;
 };
 
 

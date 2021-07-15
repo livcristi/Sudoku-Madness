@@ -13,6 +13,9 @@ public:
 
 private:
     static void testSudokuBoard();
+    static void testSudokuRepo();
+    static void testSudokuChecker();
+    static void testBktSudokuGenerator();
 };
 
 

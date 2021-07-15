@@ -63,3 +63,13 @@ std::istream &operator>>(std::istream &in, SudokuBoard &board)
     return in;
 }
 
+bool SudokuBoard::operator==(const SudokuBoard &rhs) const
+{
+    return mBoard == rhs.mBoard;
+}
+
+bool SudokuBoard::operator!=(const SudokuBoard &rhs) const
+{
+    return !(rhs == *this);
+}
+

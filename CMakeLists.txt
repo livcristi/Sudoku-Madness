@@ -23,7 +23,7 @@ add_executable(Sudoku_Madness
         generators/BacktrackingSudokuGenerator.cpp
         generators/BacktrackingSudokuGenerator.h
         testing/Tester.cpp
-        testing/Tester.h)
+        testing/Tester.h generators/SudokuUniqueChecker.cpp generators/SudokuUniqueChecker.h)
 
 file(COPY testing/data/testing_data.txt
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
