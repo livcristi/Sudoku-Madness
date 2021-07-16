@@ -34,6 +34,10 @@ public:
     // returns: Binary flag with values from the enum BoardCellVariants
 
     bool checkWinner() const;
+    // Check if the player won (the board is completed and correct)
+
+    void createNewBoard(const std::string & difficulty);
+    // Creates a new Sudoku board
 };
 
 enum BoardCellVariants

@@ -50,3 +50,8 @@ bool SudokuBoardService::checkWinner() const
     // Then, check if the board is valid (the unique cells property)
     return this->checkValidBoard();
 }
+
+void SudokuBoardService::createNewBoard(const std::string &difficulty)
+{
+    mCurrentBoard = this->mSudokuFactory.createSudokuBoard(difficulty);
+}
