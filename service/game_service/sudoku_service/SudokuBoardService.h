@@ -1,0 +1,15 @@
+//
+// Created by tereb on 16.07.2021.
+//
+
+#ifndef SUDOKU_MADNESS_SUDOKUBOARDSERVICE_H
+#define SUDOKU_MADNESS_SUDOKUBOARDSERVICE_H
+
+
+class SudokuBoardService
+{
+
+};
+
+
+#endif //SUDOKU_MADNESS_SUDOKUBOARDSERVICE_H

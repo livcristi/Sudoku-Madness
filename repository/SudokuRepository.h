@@ -21,11 +21,11 @@ public:
     // Constructor for the file based repository
     // param tFileName: The file name from which the boards are read
 
-    SudokuBoard & getBoard();
+    virtual SudokuBoard & getBoard();
     // Gets a board from the repository
     // throws: if the repository is empty
 
-    int size() const;
+    virtual int size() const;
     // Gets the number of boards in the repository
 
     void addBoard(const SudokuBoard & board);

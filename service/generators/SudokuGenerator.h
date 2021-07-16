@@ -5,7 +5,7 @@
 #ifndef SUDOKU_MADNESS_SUDOKUGENERATOR_H
 #define SUDOKU_MADNESS_SUDOKUGENERATOR_H
 
-#include "../domain/SudokuBoard.h"
+#include "../../domain/SudokuBoard.h"
 
 /// Base class for the SudokuGenerator
 /// This will be used as an approach to the Strategy Design pattern to have multiple ways of generating boards

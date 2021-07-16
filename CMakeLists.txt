@@ -14,16 +14,17 @@ add_executable(Sudoku_Madness
         starter.cpp
         domain/SudokuBoard.cpp
         domain/SudokuBoard.h
-        domain/SudokuBoardFactory.cpp
-        domain/SudokuBoardFactory.h
+        service/factory/SudokuBoardFactory.cpp
+        service/factory/SudokuBoardFactory.h
         repository/SudokuRepository.cpp
         repository/SudokuRepository.h
-        generators/SudokuGenerator.cpp
-        generators/SudokuGenerator.h
-        generators/BacktrackingSudokuGenerator.cpp
-        generators/BacktrackingSudokuGenerator.h
+        service/generators/SudokuGenerator.h
+        service/generators/BacktrackingSudokuGenerator.cpp
+        service/generators/BacktrackingSudokuGenerator.h
         testing/Tester.cpp
-        testing/Tester.h generators/SudokuUniqueChecker.cpp generators/SudokuUniqueChecker.h)
+        testing/Tester.h
+        service/generators/SudokuUniqueChecker.cpp
+        service/generators/SudokuUniqueChecker.h service/game_service/sudoku_service/SudokuBoardService.cpp service/game_service/sudoku_service/SudokuBoardService.h)
 
 file(COPY testing/data/testing_data.txt
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

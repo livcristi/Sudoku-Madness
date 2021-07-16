@@ -5,7 +5,7 @@
 #ifndef SUDOKU_MADNESS_SUDOKUUNIQUECHECKER_H
 #define SUDOKU_MADNESS_SUDOKUUNIQUECHECKER_H
 
-#include "../domain/SudokuBoard.h"
+#include "../../domain/SudokuBoard.h"
 
 /// Class which is used to check if the Sudoku board contains only unique elements (the main property besides having
 /// number between 1 and size^2)

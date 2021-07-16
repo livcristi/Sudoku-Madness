@@ -16,6 +16,7 @@ private:
     static void testSudokuRepo();
     static void testSudokuChecker();
     static void testBktSudokuGenerator();
+    static void testSudokuFactory();
 };
 
 

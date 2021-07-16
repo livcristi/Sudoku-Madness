@@ -9,8 +9,9 @@
 #include "Tester.h"
 #include "../domain/SudokuBoard.h"
 #include "../repository/SudokuRepository.h"
-#include "../generators/SudokuGenerator.h"
-#include "../generators/BacktrackingSudokuGenerator.h"
+#include "../service/generators/SudokuGenerator.h"
+#include "../service/generators/BacktrackingSudokuGenerator.h"
+#include "../service/factory/SudokuBoardFactory.h"
 
 void Tester::testAll()
 {
@@ -18,6 +19,7 @@ void Tester::testAll()
     testSudokuRepo();
     testSudokuChecker();
     testBktSudokuGenerator();
+    testSudokuFactory();
 }
 
 void Tester::testSudokuBoard()
@@ -75,18 +77,20 @@ void Tester::testBktSudokuGenerator()
 {
     std::unique_ptr<SudokuGenerator> testGenerator = std::make_unique<BacktrackingSudokuGenerator>();
 
-    auto newBoard = testGenerator->generateBoard(3);
-
-    assert(newBoard.getSize() == 9);
-    assert(SudokuUniqueChecker::checkBoard(newBoard));
-
-    for(int i = 0; i < 9; ++i)
+    // Generate a few 4*4 boards and check that they are correct
+    for(int i = 0; i < 5; ++i)
     {
-        for(int j = 0; j < 9; ++j)
-        {
-            std::cout << newBoard.getCellValue(i, j) << " ";
-        }
-        std::cout << "\n";
+        auto newBoard = testGenerator->generateBoard(2);
+        assert(newBoard.getSize() == 4);
+        assert(SudokuUniqueChecker::checkBoard(newBoard));
+    }
+
+    // Generate a few 9*9 boards and check that they are correct
+    for(int i = 0; i < 5; ++i)
+    {
+        auto newBoard = testGenerator->generateBoard(3);
+        assert(newBoard.getSize() == 9);
+        assert(SudokuUniqueChecker::checkBoard(newBoard));
     }
 }
 
@@ -110,4 +114,53 @@ void Tester::testSudokuChecker()
     assert(!testChecker.checkRow(testBoard2, 0));
     assert(!testChecker.checkColumn(testBoard2, 3));
     assert(!testChecker.checkGrid(testBoard2, 1));
+}
+
+void Tester::testSudokuFactory()
+{
+    // Read the data from the file, it may get updated
+    std::ifstream input(R"(C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\testing\data\testing_data.txt)");
+    SudokuBoard testBoard1, testBoard2;
+    input >> testBoard1 >> testBoard2;
+    input.close();
+
+    // Create a mock repo (mostly for fun)
+    class MockRepo : public SudokuRepository
+    {
+    private:
+        std::vector<SudokuBoard> boards;
+    public:
+        int mSize;
+    public:
+        MockRepo(const SudokuBoard & testBoard1, const SudokuBoard & testBoard2) :
+        SudokuRepository(R"(C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\testing\data\testing_data.txt)")
+        {
+            boards.push_back(testBoard1);
+            boards.push_back(testBoard2);
+            mSize = 10;
+        };
+
+        SudokuBoard &getBoard() override
+        {
+            return boards[0];
+        }
+
+        int size() const override
+        {
+            return mSize;
+        }
+    };
+
+    MockRepo testRepo(testBoard1, testBoard2);
+
+    // Check that it retrieves from the repo
+    SudokuBoardFactory testFactory(testRepo);
+    assert(testFactory.createSudokuBoard() == testBoard1);
+
+    // Modify the repository
+    testRepo.mSize = 2;
+
+    // Check that the factory creates a new board
+    auto newBoard = testFactory.createSudokuBoard();
+    assert(newBoard != testBoard1 && newBoard != testBoard2);
 }
