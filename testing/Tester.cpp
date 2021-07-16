@@ -155,12 +155,15 @@ void Tester::testSudokuFactory()
 
     // Check that it retrieves from the repo
     SudokuBoardFactory testFactory(testRepo);
-    assert(testFactory.createSudokuBoard() == testBoard1);
+    auto newBoard = testFactory.createSudokuBoard("easy");
+    for(int i = 0; i < 9; ++i)
+        for(int j = 0; j < 9; ++j)
+            assert(newBoard.getCellValue(i, j) == 0 || newBoard.getCellValue(i, j) == testBoard1.getCellValue(i, j));
 
     // Modify the repository
     testRepo.mSize = 2;
 
     // Check that the factory creates a new board
-    auto newBoard = testFactory.createSudokuBoard();
+    newBoard = testFactory.createSudokuBoard("medium");
     assert(newBoard != testBoard1 && newBoard != testBoard2);
 }

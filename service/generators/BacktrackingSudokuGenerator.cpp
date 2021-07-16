@@ -5,7 +5,6 @@
 #include "BacktrackingSudokuGenerator.h"
 #include <algorithm>
 #include <random>
-#include <iostream>
 
 SudokuBoard BacktrackingSudokuGenerator::generateBoard(int size) {
     SudokuBoard newBoard(size);
