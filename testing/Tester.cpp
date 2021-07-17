@@ -12,6 +12,7 @@
 #include "../service/generators/SudokuGenerator.h"
 #include "../service/generators/BacktrackingSudokuGenerator.h"
 #include "../service/factory/SudokuBoardFactory.h"
+#include "../service/game_service/sudoku_service/SudokuBoardService.h"
 
 void Tester::testAll()
 {
@@ -20,6 +21,7 @@ void Tester::testAll()
     testSudokuChecker();
     testBktSudokuGenerator();
     testSudokuFactory();
+    testBoardService();
 }
 
 void Tester::testSudokuBoard()
@@ -116,6 +118,35 @@ void Tester::testSudokuChecker()
     assert(!testChecker.checkGrid(testBoard2, 1));
 }
 
+// Mocks for testing
+
+// Create a mock repo (mostly for fun)
+class MockRepo : public SudokuRepository
+{
+private:
+    std::vector<SudokuBoard> boards;
+public:
+    int mSize;
+public:
+    MockRepo(const SudokuBoard & testBoard1, const SudokuBoard & testBoard2) :
+            SudokuRepository(R"(C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\testing\data\testing_data.txt)")
+    {
+        boards.push_back(testBoard1);
+        boards.push_back(testBoard2);
+        mSize = 10;
+    };
+
+    SudokuBoard &getBoard() override
+    {
+        return boards[0];
+    }
+
+    int size() const override
+    {
+        return mSize;
+    }
+};
+
 void Tester::testSudokuFactory()
 {
     // Read the data from the file, it may get updated
@@ -123,33 +154,6 @@ void Tester::testSudokuFactory()
     SudokuBoard testBoard1, testBoard2;
     input >> testBoard1 >> testBoard2;
     input.close();
-
-    // Create a mock repo (mostly for fun)
-    class MockRepo : public SudokuRepository
-    {
-    private:
-        std::vector<SudokuBoard> boards;
-    public:
-        int mSize;
-    public:
-        MockRepo(const SudokuBoard & testBoard1, const SudokuBoard & testBoard2) :
-        SudokuRepository(R"(C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\testing\data\testing_data.txt)")
-        {
-            boards.push_back(testBoard1);
-            boards.push_back(testBoard2);
-            mSize = 10;
-        };
-
-        SudokuBoard &getBoard() override
-        {
-            return boards[0];
-        }
-
-        int size() const override
-        {
-            return mSize;
-        }
-    };
 
     MockRepo testRepo(testBoard1, testBoard2);
 
@@ -166,4 +170,57 @@ void Tester::testSudokuFactory()
     // Check that the factory creates a new board
     newBoard = testFactory.createSudokuBoard("medium");
     assert(newBoard != testBoard1 && newBoard != testBoard2);
+}
+
+// Create a mock factory
+class MockFactory : public SudokuBoardFactory
+{
+private:
+    SudokuBoard & board;
+public:
+    MockFactory(SudokuRepository & repo, SudokuBoard & testBoard) : SudokuBoardFactory(repo), board(testBoard) {}
+
+    SudokuBoard createSudokuBoard(const std::string &difficulty, int size) override
+    {
+        return board;
+    }
+};
+
+void Tester::testBoardService()
+{
+    // Read the data from the file, it may get updated
+    std::ifstream input(R"(C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\testing\data\testing_data.txt)");
+    SudokuBoard testBoard1, testBoard2;
+    input >> testBoard1 >> testBoard2;
+    input.close();
+
+    MockRepo mockRepo(testBoard1, testBoard2);
+    MockFactory mockFactory(mockRepo, testBoard1);
+
+    // Create the service and test it
+    SudokuBoardService testService(mockFactory);
+
+    // Change the first cell of the board which will be used in the service
+    testBoard1.setCellValue(0, 0, 1);
+
+    testService.createNewBoard("easy");
+
+    assert(testService.getCurrentBoard() == testBoard1);
+    assert(testService.checkWinner() == false);
+    assert(testService.checkValidBoard() == false);
+    assert(testService.setBoardCell(0, 0, 5) == InvalidCell);
+
+    // Change the board to make it editable
+    testBoard1.setCellValue(0, 0, 0);
+    testService.createNewBoard("easy");
+
+    assert(testService.getCurrentBoard() == testBoard1);
+    assert(testService.checkValidBoard() == true);
+    assert(testService.checkWinner() == false);
+
+    // Make a few changes to test the enum
+    assert(testService.setBoardCell(0, 0, 14) == InvalidValue);
+    assert(testService.setBoardCell(0, 0, 1) == (InvalidRow | InvalidColumn | InvalidGrid));
+    assert(testService.setBoardCell(0, 0, 5) == ValidValue);
+    assert(testService.checkWinner() == true);
 }

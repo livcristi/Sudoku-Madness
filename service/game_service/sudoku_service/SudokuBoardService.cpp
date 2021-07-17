@@ -8,6 +8,7 @@
 SudokuBoardService::SudokuBoardService(SudokuBoardFactory &tSudokuFactory) : mSudokuFactory(tSudokuFactory)
 {
     mCurrentBoard = tSudokuFactory.createSudokuBoard("easy");
+    mMaskBoard = SudokuBoard(mCurrentBoard);
 }
 
 const SudokuBoard & SudokuBoardService::getCurrentBoard()
@@ -24,6 +25,9 @@ int SudokuBoardService::setBoardCell(int row, int column, int value)
 {
     if(value <= 0 || value > mCurrentBoard.getSize())
         return InvalidValue;
+    if(mMaskBoard.getCellValue(row, column))
+        return InvalidCell;
+
     mCurrentBoard.setCellValue(row, column, value);
 
     int flag = ValidValue;
@@ -31,11 +35,11 @@ int SudokuBoardService::setBoardCell(int row, int column, int value)
     int grid = row / minSize * minSize + column / minSize;
 
     if(!SudokuUniqueChecker::checkRow(mCurrentBoard, row))
-        flag &= InvalidRow;
+        flag |= InvalidRow;
     if(!SudokuUniqueChecker::checkColumn(mCurrentBoard, column))
-        flag &= InvalidColumn;
+        flag |= InvalidColumn;
     if(!SudokuUniqueChecker::checkGrid(mCurrentBoard, grid))
-        flag &= InvalidGrid;
+        flag |= InvalidGrid;
 
     return flag;
 }
@@ -54,4 +58,9 @@ bool SudokuBoardService::checkWinner() const
 void SudokuBoardService::createNewBoard(const std::string &difficulty)
 {
     mCurrentBoard = this->mSudokuFactory.createSudokuBoard(difficulty);
+    mMaskBoard = SudokuBoard();
+    for(int i = 0; i < mMaskBoard.getSize(); ++i)
+        for(int j = 0; j < mMaskBoard.getSize(); ++j)
+            if(mCurrentBoard.getCellValue(i, j) > 0)
+                mMaskBoard.setCellValue(i, j, 1);
 }

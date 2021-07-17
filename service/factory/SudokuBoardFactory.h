@@ -21,7 +21,7 @@ public:
     // Constructor for the factory
     // param tRepo: Reference to a SudokuRepository (from which the boards are retrieved or added by the factory)
 
-    SudokuBoard createSudokuBoard(const std::string & difficulty, int size = 3);
+    virtual SudokuBoard createSudokuBoard(const std::string & difficulty, int size = 3);
     // Creates a new sudoku board with the given difficulty and size
     // param difficulty: Difficulty for the sudoku game (easy, medium, hard)
     // param size: Size of a grid on the sudoku board (default is 3)

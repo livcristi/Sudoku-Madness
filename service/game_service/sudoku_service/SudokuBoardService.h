@@ -14,6 +14,7 @@ class SudokuBoardService
 private:
     SudokuBoardFactory & mSudokuFactory;
     SudokuBoard mCurrentBoard;
+    SudokuBoard mMaskBoard;
 public:
     explicit SudokuBoardService(SudokuBoardFactory & tSudokuFactory);
     // Constructor for the Board Service
@@ -46,7 +47,8 @@ enum BoardCellVariants
     InvalidValue = 1,
     InvalidRow = 2,
     InvalidColumn = 4,
-    InvalidGrid = 8
+    InvalidGrid = 8,
+    InvalidCell = 16
 };
 
 #endif //SUDOKU_MADNESS_SUDOKUBOARDSERVICE_H
