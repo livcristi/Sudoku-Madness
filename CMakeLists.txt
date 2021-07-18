@@ -24,7 +24,14 @@ add_executable(Sudoku_Madness
         testing/Tester.cpp
         testing/Tester.h
         service/generators/SudokuUniqueChecker.cpp
-        service/generators/SudokuUniqueChecker.h service/game_service/sudoku_service/SudokuBoardService.cpp service/game_service/sudoku_service/SudokuBoardService.h gui/model/GUIModel.cpp gui/model/GUIModel.h gui/window/MainWindow.cpp gui/window/MainWindow.h)
+        service/generators/SudokuUniqueChecker.h
+        service/game_service/sudoku_service/SudokuBoardService.cpp
+        service/game_service/sudoku_service/SudokuBoardService.h
+        gui/model/GUIModel.cpp
+        gui/model/GUIModel.h
+        gui/window/mainwindow.h
+        gui/window/mainwindow.cpp
+        )
 
 file(COPY testing/data/testing_data.txt
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

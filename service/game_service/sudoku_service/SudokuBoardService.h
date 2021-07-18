@@ -39,6 +39,8 @@ public:
 
     void createNewBoard(const std::string & difficulty);
     // Creates a new Sudoku board
+
+    bool checkOccupiedCell(int row, int column);
 };
 
 enum BoardCellVariants

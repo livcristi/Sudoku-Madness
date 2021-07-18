@@ -7,8 +7,7 @@
 
 SudokuBoardService::SudokuBoardService(SudokuBoardFactory &tSudokuFactory) : mSudokuFactory(tSudokuFactory)
 {
-    mCurrentBoard = tSudokuFactory.createSudokuBoard("easy");
-    mMaskBoard = SudokuBoard(mCurrentBoard);
+    this->createNewBoard("easy");
 }
 
 const SudokuBoard & SudokuBoardService::getCurrentBoard()
@@ -63,4 +62,9 @@ void SudokuBoardService::createNewBoard(const std::string &difficulty)
         for(int j = 0; j < mMaskBoard.getSize(); ++j)
             if(mCurrentBoard.getCellValue(i, j) > 0)
                 mMaskBoard.setCellValue(i, j, 1);
+}
+
+bool SudokuBoardService::checkOccupiedCell(int row, int column)
+{
+    return (mMaskBoard.getCellValue(row, column) > 0);
 }

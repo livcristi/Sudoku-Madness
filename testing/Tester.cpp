@@ -85,6 +85,10 @@ void Tester::testBktSudokuGenerator()
         auto newBoard = testGenerator->generateBoard(2);
         assert(newBoard.getSize() == 4);
         assert(SudokuUniqueChecker::checkBoard(newBoard));
+
+        for(int j = 0; j < 4; ++j)
+            for(int k = 0; k < 4; ++k)
+                assert(newBoard.getCellValue(j, k) > 0);
     }
 
     // Generate a few 9*9 boards and check that they are correct
@@ -93,6 +97,9 @@ void Tester::testBktSudokuGenerator()
         auto newBoard = testGenerator->generateBoard(3);
         assert(newBoard.getSize() == 9);
         assert(SudokuUniqueChecker::checkBoard(newBoard));
+        for(int j = 0; j < 9; ++j)
+            for(int k = 0; k < 9; ++k)
+                assert(newBoard.getCellValue(j, k) > 0);
     }
 }
 

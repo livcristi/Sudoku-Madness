@@ -1,36 +1,29 @@
-//
-// Created by tereb on 16.07.2021.
-//
-
-#ifndef SUDOKU_MADNESS_MAINWINDOW_H
-#define SUDOKU_MADNESS_MAINWINDOW_H
-
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QWidget>
-#include <QTableView>
-#include <QLabel>
-#include <QComboBox>
-#include <QPushButton>
+#include "../../service/game_service/sudoku_service/SudokuBoardService.h"
 #include "../model/GUIModel.h"
 
+QT_BEGIN_NAMESPACE
+namespace Ui { class MainWindow; }
+QT_END_NAMESPACE
 
-class MainWindow : public QWidget
+class MainWindow : public QMainWindow
 {
+    Q_OBJECT
 private:
     GUIModel & mModel;
     SudokuBoardService & mService;
 
-    // Graphical parts
-    QTableView * tableView;
-    QComboBox * difficultySetting;
-    QLabel * score, * time, * bombsMenu;
-    QPushButton * bomb1, bomb2, bomb3;
 public:
-    MainWindow(SudokuBoardService & service, GUIModel & model, QWidget * parent = nullptr);
+    MainWindow(GUIModel & model, SudokuBoardService & service, QWidget *parent = nullptr);
+    ~MainWindow();
+
 private:
-    void initGUI();
+    Ui::MainWindow *ui;
+
+public slots:
+    void gameEnded();
 };
-
-
-#endif //SUDOKU_MADNESS_MAINWINDOW_H
+#endif // MAINWINDOW_H

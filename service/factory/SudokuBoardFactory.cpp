@@ -4,6 +4,7 @@
 
 #include "SudokuBoardFactory.h"
 #include "../generators/BacktrackingSudokuGenerator.h"
+#include <iostream>
 
 SudokuBoardFactory::SudokuBoardFactory(SudokuRepository &tRepo): mRepo(tRepo)
 {
@@ -35,12 +36,11 @@ SudokuBoard SudokuBoardFactory::createSudokuBoard(const std::string & difficulty
 
     while(removedCells > 0)
     {
-        int pos = rand() % (side * side);
-        int row = pos / side;
-        int col = pos % side;
+        int row = rand() % newBoard.getSize();
+        int col = rand() % newBoard.getSize();
         if(newBoard.getCellValue(row, col) != 0)
         {
-            newBoard.setCellValue(row, col, 0);
+            newBoard.setCellValue(row, col, UNASSIGNED);
             removedCells--;
         }
     }

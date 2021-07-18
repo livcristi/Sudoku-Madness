@@ -1,44 +1,31 @@
-//
-// Created by tereb on 16.07.2021.
-//
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
 
-#include <QVBoxLayout>
-#include <QHeaderView>
-#include "MainWindow.h"
+#include <QMessageBox>
 
-MainWindow::MainWindow(SudokuBoardService &service, GUIModel &model, QWidget *parent) :
-QWidget(parent), mService(service), mModel(model)
+MainWindow::MainWindow(GUIModel & model, SudokuBoardService & service, QWidget *parent)
+    : QMainWindow(parent), mModel(model), mService(service)
+    , ui(new Ui::MainWindow)
 {
-    this->initGUI();
+    ui->setupUi(this);
+
+    ui->sudokuTableView->setModel(&mModel);
+    ui->sudokuTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->sudokuTableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->sudokuTableView->horizontalHeader()->hide();
+    ui->sudokuTableView->verticalHeader()->hide();
+
+    QObject::connect(&mModel, &GUIModel::gameWon, this, &MainWindow::gameEnded);
 }
 
-void MainWindow::initGUI()
+MainWindow::~MainWindow()
 {
-    this->resize(800, 600);
+    delete ui;
+}
 
-    this->tableView = new QTableView();
-    this->difficultySetting = new QComboBox();
-    this->bombsMenu = new QLabel("Bomb shop");
-
-    // Set-up the table view
-    this->tableView->setModel(&mModel);
-    this->tableView->resizeColumnsToContents();
-    this->tableView->horizontalHeader()->hide();
-    this->tableView->verticalHeader()->hide();
-
-    // Set-up the combo box
-    difficultySetting->addItem("Easy");
-    difficultySetting->addItem("Medium");
-    difficultySetting->addItem("Hard");
-
-    auto mainLayout = new QVBoxLayout(this);
-
-    auto playLayout = new QHBoxLayout();
-    playLayout->addWidget(tableView);
-    auto playRightLayout = new QVBoxLayout();
-    playRightLayout->addWidget(difficultySetting);
-    playRightLayout->addWidget(bombsMenu);
-    playLayout->addLayout(playRightLayout);
-
-    mainLayout->addLayout(playLayout);
+void MainWindow::gameEnded()
+{
+    QMessageBox msgBox;
+    msgBox.setText("Congratulations! You won the game!");
+    msgBox.exec();
 }

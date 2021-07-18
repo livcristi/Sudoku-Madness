@@ -39,17 +39,23 @@ QVariant GUIModel::data(const QModelIndex &index, int role) const
     }
     if (role == Qt::BackgroundRole)
     {
-        if (value < 0)
+        if(mService.checkOccupiedCell(row, column))
         {
-            return QBrush{ QColor{220, 220, 220}};
-        }
-        else if(value == 0)
-        {
-            return QBrush{ QColor{255, 255, 255}};
+            if (value < 0)
+            {
+                return QBrush{ QColor{220, 220, 220}};
+            }
+            else if(value == 0)
+            {
+                return QBrush{ QColor{255, 255, 255}};
+            }
         }
         else
         {
-            return QBrush{ QColor{240, 240, 240}};
+            if(value == 0)
+                return QBrush{ QColor{230, 230, 230}};
+            else
+                return QBrush{ QColor{240, 240, 240}};
         }
     }
     if (role == Qt::TextAlignmentRole)
@@ -71,6 +77,8 @@ bool GUIModel::setData(const QModelIndex &index, const QVariant &value, int role
             return false;
         // todo: make the invalid lines/columns/grids red
         emit dataChanged(index, index, {role});
+        if(mService.checkWinner())
+            emit gameWon(1);
         return true;
     }
 
@@ -79,7 +87,13 @@ bool GUIModel::setData(const QModelIndex &index, const QVariant &value, int role
 
 Qt::ItemFlags GUIModel::flags(const QModelIndex &index) const
 {
-    return Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled;
+    int row = index.row();
+    int column = index.column();
+
+    if(mService.checkOccupiedCell(row, column))
+        return Qt::ItemIsEnabled;
+    else
+        return Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled;
 }
 
 

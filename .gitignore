@@ -37,5 +37,7 @@ cmake-build-debug-mingw/
 cmake-build-debug-mingw-coverage/
 cmake-build-debug-wsl/
 cmake-build-debug-wsl-coverage/
+build-SudokuMadnessQT-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/
 lib/
 test_data/
+SudokuMadnessQT.pro.user
