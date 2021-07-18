@@ -14,14 +14,31 @@ QWidget(parent), mService(service), mModel(model)
 
 void MainWindow::initGUI()
 {
-    this->resize(300, 300);
+    this->resize(800, 600);
 
     this->tableView = new QTableView();
+    this->difficultySetting = new QComboBox();
+    this->bombsMenu = new QLabel("Bomb shop");
+
+    // Set-up the table view
     this->tableView->setModel(&mModel);
     this->tableView->resizeColumnsToContents();
     this->tableView->horizontalHeader()->hide();
     this->tableView->verticalHeader()->hide();
 
+    // Set-up the combo box
+    difficultySetting->addItem("Easy");
+    difficultySetting->addItem("Medium");
+    difficultySetting->addItem("Hard");
+
     auto mainLayout = new QVBoxLayout(this);
-    mainLayout->addWidget(tableView);
+
+    auto playLayout = new QHBoxLayout();
+    playLayout->addWidget(tableView);
+    auto playRightLayout = new QVBoxLayout();
+    playRightLayout->addWidget(difficultySetting);
+    playRightLayout->addWidget(bombsMenu);
+    playLayout->addLayout(playRightLayout);
+
+    mainLayout->addLayout(playLayout);
 }

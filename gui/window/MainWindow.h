@@ -9,6 +9,9 @@
 #include <QMainWindow>
 #include <QWidget>
 #include <QTableView>
+#include <QLabel>
+#include <QComboBox>
+#include <QPushButton>
 #include "../model/GUIModel.h"
 
 
@@ -18,7 +21,11 @@ private:
     GUIModel & mModel;
     SudokuBoardService & mService;
 
+    // Graphical parts
     QTableView * tableView;
+    QComboBox * difficultySetting;
+    QLabel * score, * time, * bombsMenu;
+    QPushButton * bomb1, bomb2, bomb3;
 public:
     MainWindow(SudokuBoardService & service, GUIModel & model, QWidget * parent = nullptr);
 private:

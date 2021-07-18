@@ -43,12 +43,43 @@ QVariant GUIModel::data(const QModelIndex &index, int role) const
         {
             return QBrush{ QColor{220, 220, 220}};
         }
+        else if(value == 0)
+        {
+            return QBrush{ QColor{255, 255, 255}};
+        }
+        else
+        {
+            return QBrush{ QColor{240, 240, 240}};
+        }
     }
+    if (role == Qt::TextAlignmentRole)
+        return Qt::AlignCenter;
 
     return QVariant();
+}
+
+bool GUIModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    int row = index.row();
+    int column = index.column();
+    int userValue = value.toInt();
+
+    if(role == Qt::EditRole)
+    {
+        auto response = this->mService.setBoardCell(row, column, userValue);
+        if(response == InvalidCell)
+            return false;
+        // todo: make the invalid lines/columns/grids red
+        emit dataChanged(index, index, {role});
+        return true;
+    }
+
+    return QAbstractItemModel::setData(index, value, role);
 }
 
 Qt::ItemFlags GUIModel::flags(const QModelIndex &index) const
 {
     return Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled;
 }
+
+

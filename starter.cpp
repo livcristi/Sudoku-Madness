@@ -16,9 +16,9 @@ int main(int argc, char ** argv)
 {
     srand(time(nullptr));
 
-    Tester::testAll();
-    return 0;
-    
+//    Tester::testAll();
+//    return 0;
+
     QApplication app{argc, argv};
 
     SudokuRepository repository(R"(C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\data\boards.txt)");
