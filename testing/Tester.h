@@ -18,6 +18,8 @@ private:
     static void testBktSudokuGenerator();
     static void testSudokuFactory();
     static void testBoardService();
+    static void testBombing();
+    static void testMarking();
 };
 
 

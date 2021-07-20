@@ -49,5 +49,16 @@ public:
     bool operator!=(const SudokuBoard &rhs) const;
 };
 
+enum BoardCellVariants
+{
+    FreeCell = 0,
+    ValidValue = 0,
+    OccupiedCell = 1,
+    InvalidValue = 1,
+    InvalidRow = 2,
+    InvalidColumn = 4,
+    InvalidGrid = 8,
+    InvalidCell = 16
+};
 
 #endif //SUDOKU_MADNESS_SUDOKUBOARD_H

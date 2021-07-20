@@ -31,7 +31,7 @@ add_executable(Sudoku_Madness
         gui/model/GUIModel.h
         gui/window/mainwindow.h
         gui/window/mainwindow.cpp
-        )
+        service/bombs/BoardBomb.h service/bombs/BoardBombGrenade.cpp service/bombs/BoardBombGrenade.h service/bombs/BoardBombLine.cpp service/bombs/BoardBombLine.h service/bombs/BoardBombMissile.cpp service/bombs/BoardBombMissile.h)
 
 file(COPY testing/data/testing_data.txt
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

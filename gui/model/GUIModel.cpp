@@ -39,16 +39,17 @@ QVariant GUIModel::data(const QModelIndex &index, int role) const
     }
     if (role == Qt::BackgroundRole)
     {
+        if(value == MISSING)
+        {
+            return QBrush{ QColor{100, 100, 100}};
+        }
+        if(mService.checkClashingCell(row, column))
+        {
+            return QBrush{QColor{232, 53, 53}};
+        }
         if(mService.checkOccupiedCell(row, column))
         {
-            if (value < 0)
-            {
-                return QBrush{ QColor{220, 220, 220}};
-            }
-            else if(value == 0)
-            {
-                return QBrush{ QColor{255, 255, 255}};
-            }
+            return QBrush{ QColor{255, 255, 255}};
         }
         else
         {
@@ -56,6 +57,17 @@ QVariant GUIModel::data(const QModelIndex &index, int role) const
                 return QBrush{ QColor{230, 230, 230}};
             else
                 return QBrush{ QColor{240, 240, 240}};
+        }
+    }
+    if (role == Qt::ForegroundRole)
+    {
+        if(mService.checkOccupiedCell(row, column))
+        {
+            return QBrush{ QColor{52, 22, 97}};
+        }
+        else
+        {
+            return QBrush{QColor{78, 145, 207}};
         }
     }
     if (role == Qt::TextAlignmentRole)
@@ -91,7 +103,7 @@ Qt::ItemFlags GUIModel::flags(const QModelIndex &index) const
     int column = index.column();
 
     if(mService.checkOccupiedCell(row, column))
-        return Qt::ItemIsEnabled;
+        return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
     else
         return Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled;
 }

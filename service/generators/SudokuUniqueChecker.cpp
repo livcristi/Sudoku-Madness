@@ -86,4 +86,92 @@ bool SudokuUniqueChecker::checkGrid(const SudokuBoard &sudokuBoard, int grid)
     return true;
 }
 
+void SudokuUniqueChecker::markRow(const SudokuBoard &sudokuBoard, SudokuBoard &markBoard, int row)
+{
+    // Count the frequencies for the given row
+    std::vector<int> freq(sudokuBoard.getSize() + 1, 0);
+    for(int col = 0; col < sudokuBoard.getSize(); ++col)
+        if(sudokuBoard.getCellValue(row, col) > 0)
+            freq[sudokuBoard.getCellValue(row, col)]++;
+
+    // Mark the cells based on frequency (> 1 -> InvalidRow, <= 1 -> ValidRow)
+    for(int col = 0; col < sudokuBoard.getSize(); ++col)
+    {
+        if(freq[sudokuBoard.getCellValue(row, col)] > 1)
+        {
+            int maskValue = markBoard.getCellValue(row, col);
+            markBoard.setCellValue(row, col, maskValue | InvalidRow);
+        }
+        else
+        {
+            int maskValue = markBoard.getCellValue(row, col);
+            if(maskValue & InvalidRow)
+                markBoard.setCellValue(row, col, maskValue ^ InvalidRow);
+        }
+    }
+}
+
+void SudokuUniqueChecker::markColumn(const SudokuBoard &sudokuBoard, SudokuBoard &markBoard, int column)
+{
+    // Count the frequencies
+    std::vector<int> freq(sudokuBoard.getSize() + 1, 0);
+    for(int row = 0; row < sudokuBoard.getSize(); ++row)
+        if(sudokuBoard.getCellValue(row, column) > 0)
+            freq[sudokuBoard.getCellValue(row, column)]++;
+
+    // Mark the cells based on frequency
+    for(int row = 0; row < sudokuBoard.getSize(); ++row)
+    {
+        if(freq[sudokuBoard.getCellValue(row, column)] > 1)
+        {
+            int maskValue = markBoard.getCellValue(row, column);
+            markBoard.setCellValue(row, column, maskValue | InvalidColumn);
+        }
+        else
+        {
+            int maskValue = markBoard.getCellValue(row, column);
+            if(maskValue & InvalidColumn)
+                markBoard.setCellValue(row, column, maskValue ^ InvalidColumn);
+        }
+    }
+}
+
+void SudokuUniqueChecker::markGird(const SudokuBoard &sudokuBoard, SudokuBoard &markBoard, int grid)
+{
+    int size = (int)sqrt(sudokuBoard.getSize());
+    int startX = grid / size * size;
+    int startY = grid % size * size;
+
+    // Count the frequencies
+    std::vector<int> freq(sudokuBoard.getSize() + 1, 0);
+
+    for(int row = startX; row < startX + size; ++row)
+    {
+        for(int column = startY; column < startY + size; ++column)
+        {
+            if(sudokuBoard.getCellValue(row, column) > 0)
+                freq[sudokuBoard.getCellValue(row, column)]++;
+        }
+    }
+
+    // Mark the cells based on frequency
+    for(int row = startX; row < startX + size; ++row)
+    {
+        for(int column = startY; column < startY + size; ++column)
+        {
+            if(freq[sudokuBoard.getCellValue(row, column)] > 1)
+            {
+                int maskValue = markBoard.getCellValue(row, column);
+                markBoard.setCellValue(row, column, maskValue | InvalidGrid);
+            }
+            else
+            {
+                int maskValue = markBoard.getCellValue(row, column);
+                if(maskValue & InvalidGrid)
+                    markBoard.setCellValue(row, column, maskValue ^ InvalidGrid);
+            }
+        }
+    }
+}
+
 

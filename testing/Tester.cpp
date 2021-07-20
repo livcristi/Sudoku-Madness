@@ -22,6 +22,8 @@ void Tester::testAll()
     testBktSudokuGenerator();
     testSudokuFactory();
     testBoardService();
+    testBombing();
+    testMarking();
 }
 
 void Tester::testSudokuBoard()
@@ -218,7 +220,7 @@ void Tester::testBoardService()
     assert(testService.setBoardCell(0, 0, 5) == InvalidCell);
 
     // Change the board to make it editable
-    testBoard1.setCellValue(0, 0, 0);
+    testBoard1.setCellValue(0, 0, UNASSIGNED);
     testService.createNewBoard("easy");
 
     assert(testService.getCurrentBoard() == testBoard1);
@@ -230,4 +232,96 @@ void Tester::testBoardService()
     assert(testService.setBoardCell(0, 0, 1) == (InvalidRow | InvalidColumn | InvalidGrid));
     assert(testService.setBoardCell(0, 0, 5) == ValidValue);
     assert(testService.checkWinner() == true);
+}
+
+void Tester::testBombing()
+{
+    // Read the data from the file, it may get updated
+    std::ifstream input(R"(C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\testing\data\testing_data.txt)");
+    SudokuBoard testBoard1, testBoard2;
+    input >> testBoard1 >> testBoard2;
+    input.close();
+
+    MockRepo mockRepo(testBoard1, testBoard2);
+    MockFactory mockFactory(mockRepo, testBoard1);
+
+    // Create the service to have access to bombs
+    SudokuBoardService testService(mockFactory);
+
+    // Test bomb type 1 on corner
+    testService.bombBoard(0, 0, 1);
+    for(int i = 0; i < 2; ++i)
+        for(int j = 0; j < 2; ++j)
+            assert(testService.getCurrentBoard().getCellValue(i, j) == MISSING);
+
+    // Test bomb type 1 on center cells
+    testService.createNewBoard("easy");
+    testService.bombBoard(1, 1, 1);
+    int bombedCnt = 0;
+    for(int i = 0; i < 3; ++i)
+        for(int j = 0; j < 3; ++j)
+        {
+            if(testService.getCurrentBoard().getCellValue(i, j) == MISSING)
+                bombedCnt++;
+        }
+    assert(bombedCnt >= 5);
+
+    // Test bomb type 2
+    testService.createNewBoard("easy");
+    testService.bombBoard(1, 1, 2);
+    bombedCnt = 0;
+    for(int i = 0; i < 9; ++i)
+    {
+        if(testService.getCurrentBoard().getCellValue(i, 1) == MISSING ||
+        testService.getCurrentBoard().getCellValue(1, i) == MISSING)
+            bombedCnt++;
+    }
+    assert(bombedCnt == 9);
+
+    // Test bomb type 3
+    testService.createNewBoard("easy");
+    testService.bombBoard(3, 3, 3);
+    bombedCnt = 0;
+    for(int i = 0; i < 9; ++i)
+    {
+        for(int j = 0; j < 9; ++j)
+        {
+            if(testService.getCurrentBoard().getCellValue(i, j) == MISSING)
+                bombedCnt++;
+        }
+    }
+    assert(bombedCnt == 25);
+}
+
+void Tester::testMarking()
+{
+    // Read the data from the file, it may get updated
+    std::ifstream input(R"(C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\testing\data\testing_data.txt)");
+    SudokuBoard testBoard1, testBoard2;
+    input >> testBoard1 >> testBoard2;
+    input.close();
+
+    MockRepo mockRepo(testBoard1, testBoard2);
+    MockFactory mockFactory(mockRepo, testBoard1);
+
+    // Create the service to have access to bombs
+    SudokuBoardService testService(mockFactory);
+
+    // Set an invalid value and check that the other cells were marked
+    testBoard1.setCellValue(0, 0, 0);
+    testService.createNewBoard("easy");
+    testService.setBoardCell(0, 0, 1);
+    assert(testService.checkClashingCell(0, 0));
+    assert(testService.checkClashingCell(0, 3));
+    assert(testService.checkClashingCell(8, 0));
+    assert(testService.checkClashingCell(1, 2));
+
+    // Make a correct mode and check again
+    testService.setBoardCell(0, 0, 5);
+    assert(!testService.checkClashingCell(0, 0));
+    assert(!testService.checkClashingCell(0, 3));
+    assert(!testService.checkClashingCell(8, 0));
+    assert(!testService.checkClashingCell(1, 2));
+
+    assert(testService.checkWinner());
 }

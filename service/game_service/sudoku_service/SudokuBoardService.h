@@ -6,21 +6,24 @@
 #define SUDOKU_MADNESS_SUDOKUBOARDSERVICE_H
 
 #include "../../factory/SudokuBoardFactory.h"
+#include "../../bombs/BoardBomb.h"
+#include <memory>
 
 /// Class for the game board service, which handles main events on the playable board
 
 class SudokuBoardService
 {
 private:
-    SudokuBoardFactory & mSudokuFactory;
+    SudokuBoardFactory &mSudokuFactory;
     SudokuBoard mCurrentBoard;
     SudokuBoard mMaskBoard;
+    std::vector<std::unique_ptr<BoardBomb>> bombs;
 public:
-    explicit SudokuBoardService(SudokuBoardFactory & tSudokuFactory);
+    explicit SudokuBoardService(SudokuBoardFactory &tSudokuFactory);
     // Constructor for the Board Service
     // param tSudokuFactory: Sudoku Factory which is used to get new boards
 
-    const SudokuBoard & getCurrentBoard();
+    const SudokuBoard &getCurrentBoard();
     // Gets the current board which is played
 
     bool checkValidBoard() const;
@@ -37,20 +40,23 @@ public:
     bool checkWinner() const;
     // Check if the player won (the board is completed and correct)
 
-    void createNewBoard(const std::string & difficulty);
+    void createNewBoard(const std::string &difficulty);
     // Creates a new Sudoku board
 
     bool checkOccupiedCell(int row, int column);
-};
+    // Checks if a cell at the given row and column is pre-made (not to be edited by the player)
+    // param row: Row of the cell
+    // param column: Column of the cell
+    // returns: True if the cell is occupied, false otherwise
 
-enum BoardCellVariants
-{
-    ValidValue = 0,
-    InvalidValue = 1,
-    InvalidRow = 2,
-    InvalidColumn = 4,
-    InvalidGrid = 8,
-    InvalidCell = 16
+    bool checkClashingCell(int row, int column);
+    // Checks if a cell is clashing with another cell
+
+    void bombBoard(int row, int column, int bombType);
+    // Bombs a cell at the given row and column with a bomb of the specified type
+    // todo: refactor the method
+private:
+    void markClashingCells();
 };
 
 #endif //SUDOKU_MADNESS_SUDOKUBOARDSERVICE_H

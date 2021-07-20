@@ -23,6 +23,12 @@ public:
 private:
     Ui::MainWindow *ui;
 
+private:
+    void changeDifficulty();
+    void bomb1Cell();
+    void bomb2Cell();
+    void bomb3Cell();
+
 public slots:
     void gameEnded();
 };

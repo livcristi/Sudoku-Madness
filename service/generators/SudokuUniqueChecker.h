@@ -29,6 +29,13 @@ public:
     static bool checkGrid(const SudokuBoard & sudokuBoard, int grid);
     // Checks if the given grid (formation of size size*size) is valid in the given sudoku board
     // returns: true if the grid is valid, false otherwise
+
+    // todo: specs here
+    static void markRow(const SudokuBoard & sudokuBoard, SudokuBoard & markBoard, int row);
+
+    static void markColumn(const SudokuBoard & sudokuBoard, SudokuBoard & markBoard, int column);
+
+    static void markGird(const SudokuBoard & sudokuBoard, SudokuBoard & markBoard, int grid);
 };
 
 

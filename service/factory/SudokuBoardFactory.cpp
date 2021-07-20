@@ -4,7 +4,9 @@
 
 #include "SudokuBoardFactory.h"
 #include "../generators/BacktrackingSudokuGenerator.h"
-#include <iostream>
+#include <algorithm>
+#include <cctype>
+#include <string>
 
 SudokuBoardFactory::SudokuBoardFactory(SudokuRepository &tRepo): mRepo(tRepo)
 {
@@ -24,15 +26,20 @@ SudokuBoard SudokuBoardFactory::createSudokuBoard(const std::string & difficulty
         newBoard = mRepo.getBoard();
     }
 
+    // Convert string to lowercase
+    std::string lowercaseDifficulty(difficulty);
+    std::transform(lowercaseDifficulty.begin(), lowercaseDifficulty.end(), lowercaseDifficulty.begin(),
+                   [](unsigned char c){ return std::tolower(c); });
+
     // Empty random cells to for the difficulty
     int side = size * size;
     int removedCells = side;
-    if(difficulty == "easy")
-        removedCells = rand() % side + side;
-    else if(difficulty == "medium")
+    if(lowercaseDifficulty == "easy")
         removedCells = rand() % side + side * 2;
-    else if(difficulty == "hard")
+    else if(lowercaseDifficulty == "medium")
         removedCells = rand() % side + side * 3;
+    else if(lowercaseDifficulty == "hard")
+        removedCells = rand() % side + side * 4;
 
     while(removedCells > 0)
     {
