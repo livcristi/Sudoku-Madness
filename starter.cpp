@@ -9,6 +9,17 @@
 #include "gui/window/mainwindow.h"
 
 #include <QApplication>
+#include <QDir>
+
+// Get the path to the data file
+const std::string getDataFile()
+{
+    std::string dirPath = QDir::currentPath().toStdString();
+    while(dirPath[dirPath.size() - 1] != '/')
+        dirPath.pop_back();
+    dirPath += "Sudoku-Madness/data/boards.txt";
+    return dirPath;
+}
 
 
 int main(int argc, char *argv[])
@@ -17,7 +28,7 @@ int main(int argc, char *argv[])
     Tester::testAll();
     QApplication a(argc, argv);
 
-    SudokuRepository repository(R"(C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\data\boards.txt)");
+    SudokuRepository repository(getDataFile());
     SudokuBoardFactory factory(repository);
     SudokuBoardService boardService(factory);
 

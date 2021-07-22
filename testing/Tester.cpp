@@ -2,6 +2,8 @@
 // Created by tereb on 14.07.2021.
 //
 
+#include <QDir>
+
 #include <fstream>
 #include <cassert>
 #include <iostream>
@@ -26,12 +28,23 @@ void Tester::testAll()
     testMarking();
 }
 
+const std::string getTestDataFile()
+{
+    std::string dirPath = QDir::currentPath().toStdString();
+    while(dirPath[dirPath.size() - 1] != '/')
+        dirPath.pop_back();
+    dirPath += "Sudoku-Madness/testing/data/testing_data.txt";
+    return dirPath;
+}
+
 void Tester::testSudokuBoard()
 {
     // Read a board from the data file and check it it was read correctly
-    std::ifstream input(R"(C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\testing\data\testing_data.txt)");
+    std::ifstream input(getTestDataFile());
     if(!input)
+    {
         throw std::runtime_error("Error opening file!");
+    }
 
     SudokuBoard testBoard;
     input >> testBoard;
@@ -57,10 +70,10 @@ void Tester::testSudokuBoard()
 void Tester::testSudokuRepo()
 {
     // Create a test repository
-    SudokuRepository testRepo(R"(C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\testing\data\testing_data.txt)");
+    SudokuRepository testRepo(getTestDataFile());
 
     // Read the data from the file and check that it is equal and the repo read it well
-    std::ifstream input(R"(C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\testing\data\testing_data.txt)");
+    std::ifstream input(getTestDataFile());
     SudokuBoard testBoard1, testBoard2;
     input >> testBoard1 >> testBoard2;
     input.close();
@@ -72,7 +85,7 @@ void Tester::testSudokuRepo()
     assert(testRepo.size() == 3);
 
     // Rewrite the data in the file
-    std::ofstream output(R"(C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\testing\data\testing_data.txt)");
+    std::ofstream output(getTestDataFile());
     output << testBoard1 << "\n" << testBoard2;
     output.close();
 }
@@ -108,7 +121,7 @@ void Tester::testBktSudokuGenerator()
 void Tester::testSudokuChecker()
 {
     // Get some valid boards
-    std::ifstream input(R"(C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\testing\data\testing_data.txt)");
+    std::ifstream input(getTestDataFile());
     SudokuBoard testBoard1, testBoard2;
     input >> testBoard1 >> testBoard2;
     input.close();
@@ -138,7 +151,7 @@ public:
     int mSize;
 public:
     MockRepo(const SudokuBoard & testBoard1, const SudokuBoard & testBoard2) :
-            SudokuRepository(R"(C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\testing\data\testing_data.txt)")
+            SudokuRepository(getTestDataFile())
     {
         boards.push_back(testBoard1);
         boards.push_back(testBoard2);
@@ -159,7 +172,7 @@ public:
 void Tester::testSudokuFactory()
 {
     // Read the data from the file, it may get updated
-    std::ifstream input(R"(C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\testing\data\testing_data.txt)");
+    std::ifstream input(getTestDataFile());
     SudokuBoard testBoard1, testBoard2;
     input >> testBoard1 >> testBoard2;
     input.close();
@@ -198,7 +211,7 @@ public:
 void Tester::testBoardService()
 {
     // Read the data from the file, it may get updated
-    std::ifstream input(R"(C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\testing\data\testing_data.txt)");
+    std::ifstream input(getTestDataFile());
     SudokuBoard testBoard1, testBoard2;
     input >> testBoard1 >> testBoard2;
     input.close();
@@ -237,7 +250,7 @@ void Tester::testBoardService()
 void Tester::testBombing()
 {
     // Read the data from the file, it may get updated
-    std::ifstream input(R"(C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\testing\data\testing_data.txt)");
+    std::ifstream input(getTestDataFile());
     SudokuBoard testBoard1, testBoard2;
     input >> testBoard1 >> testBoard2;
     input.close();
@@ -296,7 +309,7 @@ void Tester::testBombing()
 void Tester::testMarking()
 {
     // Read the data from the file, it may get updated
-    std::ifstream input(R"(C:\Users\tereb\OneDrive\Desktop\Sudoku-Madness\testing\data\testing_data.txt)");
+    std::ifstream input(getTestDataFile());
     SudokuBoard testBoard1, testBoard2;
     input >> testBoard1 >> testBoard2;
     input.close();
