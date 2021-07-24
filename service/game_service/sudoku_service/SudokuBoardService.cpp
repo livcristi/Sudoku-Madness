@@ -89,7 +89,7 @@ bool SudokuBoardService::checkOccupiedCell(int row, int column)
 void SudokuBoardService::bombBoard(int row, int column, int bombType)
 {
     // todo: throw custom exception
-    if(bombType < 1 || bombType > bombs.size())
+    if(bombType < 1 || bombType > (int)bombs.size())
         throw std::runtime_error("Cannot use a bomb");
     this->bombs[bombType - 1]->bombBoard(mCurrentBoard, row, column);
 }

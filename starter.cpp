@@ -12,8 +12,12 @@
 #include <QDir>
 
 // Get the path to the data file
-const std::string getDataFile()
+std::string getDataFile(int type = 1)
 {
+    if(type == 1)
+        return R"(C:\Users\tereb\OneDrive\Desktop\Github-SM\Sudoku-Madness\data\boards.txt)";
+    else
+        return R"(C:\Users\tereb\OneDrive\Desktop\Github-SM\Sudoku-Madness\data\coins.txt)";
     std::string dirPath = QDir::currentPath().toStdString();
     while(dirPath[dirPath.size() - 1] != '/')
         dirPath.pop_back();
@@ -32,8 +36,10 @@ int main(int argc, char *argv[])
     SudokuBoardFactory factory(repository);
     SudokuBoardService boardService(factory);
 
+    CoinService coinService(getDataFile(2));
+
     GUIModel model(boardService);
-    MainWindow mainWindow(model, boardService);
+    MainWindow mainWindow(model, boardService, coinService);
     mainWindow.show();
 
     mainWindow.show();

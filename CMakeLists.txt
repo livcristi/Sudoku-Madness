@@ -31,7 +31,19 @@ add_executable(Sudoku_Madness
         gui/model/GUIModel.h
         gui/window/mainwindow.h
         gui/window/mainwindow.cpp
-        service/bombs/BoardBomb.h service/bombs/BoardBombGrenade.cpp service/bombs/BoardBombGrenade.h service/bombs/BoardBombLine.cpp service/bombs/BoardBombLine.h service/bombs/BoardBombMissile.cpp service/bombs/BoardBombMissile.h)
+        service/bombs/BoardBomb.h
+        service/bombs/BoardBombGrenade.cpp
+        service/bombs/BoardBombGrenade.h
+        service/bombs/BoardBombLine.cpp
+        service/bombs/BoardBombLine.h
+        service/bombs/BoardBombMissile.cpp
+        service/bombs/BoardBombMissile.h
+        service/game_service/money_service/CoinService.cpp
+        service/game_service/money_service/CoinService.h
+        gui/helper_widgets/chronometer/chronoui.cpp
+        gui/helper_widgets/chronometer/chronoui.h
+        gui/helper_widgets/dialog/difficultydialog.cpp
+        gui/helper_widgets/dialog/difficultydialog.h)
 
 file(COPY testing/data/testing_data.txt
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

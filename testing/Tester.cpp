@@ -15,6 +15,7 @@
 #include "../service/generators/BacktrackingSudokuGenerator.h"
 #include "../service/factory/SudokuBoardFactory.h"
 #include "../service/game_service/sudoku_service/SudokuBoardService.h"
+#include "../service/game_service/money_service/CoinService.h"
 
 void Tester::testAll()
 {
@@ -26,10 +27,15 @@ void Tester::testAll()
     testBoardService();
     testBombing();
     testMarking();
+    testCoinsService();
 }
 
-const std::string getTestDataFile()
+std::string getTestDataFile(int type = 1)
 {
+    if(type == 1)
+        return R"(C:\Users\tereb\OneDrive\Desktop\Github-SM\Sudoku-Madness\testing\data\testing_data.txt)";
+    else
+        return R"(C:\Users\tereb\OneDrive\Desktop\Github-SM\Sudoku-Madness\testing\data\testing_coins.txt)";
     std::string dirPath = QDir::currentPath().toStdString();
     while(dirPath[dirPath.size() - 1] != '/')
         dirPath.pop_back();
@@ -337,4 +343,33 @@ void Tester::testMarking()
     assert(!testService.checkClashingCell(1, 2));
 
     assert(testService.checkWinner());
+}
+
+void Tester::testCoinsService()
+{
+    // Save the value to add it at the end
+    std::ifstream testFile(getTestDataFile(2));
+    int testValue;
+    testFile >> testValue;
+    testFile.close();
+
+    // Test the coin service with a few operations
+    {
+        CoinService testService(getTestDataFile(2));
+        assert(testService.getCoins() == 100);
+
+        testService.addCoins("Easy", 15);
+        assert(testService.getCoins() > 130 && testService.getCoins() < 200);
+
+        assert(testService.subtractCoins(100));
+        assert(testService.getCoins() < 100);
+
+        testService.addCoins("Medium", 30);
+        assert(testService.getCoins() > 50);
+    }
+
+
+    std::ofstream testFileOut(getTestDataFile(2));
+    testFileOut << testValue;
+    testFileOut.close();
 }

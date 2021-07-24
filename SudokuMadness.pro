@@ -9,8 +9,11 @@ CONFIG += c++14
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    gui/helper_widgets/chronometer/chronoui.cpp \
+    gui/helper_widgets/dialog/difficultydialog.cpp \
     gui/window/mainwindow.cpp \
     gui/model/GUIModel.cpp \
+    service/game_service/money_service/CoinService.cpp \
     starter.cpp \
     domain/SudokuBoard.cpp \
     repository/SudokuRepository.cpp \
@@ -24,6 +27,8 @@ SOURCES += \
     testing/Tester.cpp
 
 HEADERS += \
+    gui/helper_widgets/chronometer/chronoui.h \
+    gui/helper_widgets/dialog/difficultydialog.h \
     gui/window/mainwindow.h \
     gui/model/GUIModel.h \
     domain/SudokuBoard.h \
@@ -33,6 +38,7 @@ HEADERS += \
     service/bombs/BoardBombLine.h \
     service/bombs/BoardBombMissile.h \
     service/factory/SudokuBoardFactory.h \
+    service/game_service/money_service/CoinService.h \
     service/game_service/sudoku_service/SudokuBoardService.h \
     service/generators/BacktrackingSudokuGenerator.h \
     service/generators/SudokuGenerator.h \
@@ -40,6 +46,7 @@ HEADERS += \
     testing/Tester.h
 
 FORMS += \
+    gui/helper_widgets/dialog/difficultydialog.ui \
     gui/window/mainwindow.ui
 
 # Default rules for deployment.
@@ -48,6 +55,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
+    data/background.jpg \
     data/boards.txt \
+    testing/data/testing_coins.txt \
     testing/data/testing_data.txt
+
+RESOURCES += \
+    resource.qrc
 

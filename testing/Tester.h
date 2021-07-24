@@ -20,6 +20,7 @@ private:
     static void testBoardService();
     static void testBombing();
     static void testMarking();
+    static void testCoinsService();
 };
 
 

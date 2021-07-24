@@ -6,7 +6,7 @@
 #include <QFont>
 #include <QBrush>
 
-GUIModel::GUIModel(SudokuBoardService &service, QObject *parent) : mService(service), QAbstractTableModel(parent)
+GUIModel::GUIModel(SudokuBoardService &service, QObject *parent) : QAbstractTableModel(parent), mService(service)
 {}
 
 int GUIModel::rowCount(const QModelIndex &parent) const

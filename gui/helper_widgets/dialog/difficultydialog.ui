@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DifficultyDialog</class>
+ <widget class="QDialog" name="DifficultyDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>528</width>
+    <height>299</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #6a9ac1;</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="2,0,2">
+   <item>
+    <widget class="QLabel" name="dialogMessage">
+     <property name="font">
+      <font>
+       <family>Tw Cen MT</family>
+       <pointsize>23</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 23pt &quot;Tw Cen MT&quot;;
+color: black;</string>
+     </property>
+     <property name="text">
+      <string>Please select the difficulty
+for the new game</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="difficultyLabel">
+       <property name="styleSheet">
+        <string notr="true">font: 20pt &quot;Tw Cen MT&quot;;
+color: black;</string>
+       </property>
+       <property name="text">
+        <string>Difficulty</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="difficultySetting">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 20pt &quot;Tw Cen MT&quot;;
+color: black;
+background-color: #A3C1DA;</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>Easy</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Medium</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Hard</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QPushButton" name="startButton">
+     <property name="styleSheet">
+      <string notr="true">font: 20pt &quot;Tw Cen MT&quot;;
+color: black;
+background-color: #A3C1DA;</string>
+     </property>
+     <property name="text">
+      <string>Start new game</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

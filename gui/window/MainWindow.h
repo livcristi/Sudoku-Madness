@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "../../service/game_service/sudoku_service/SudokuBoardService.h"
 #include "../model/GUIModel.h"
+#include "../../service/game_service/money_service/CoinService.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,21 +16,21 @@ class MainWindow : public QMainWindow
 private:
     GUIModel & mModel;
     SudokuBoardService & mService;
+    CoinService & mCoinService;
 
 public:
-    MainWindow(GUIModel & model, SudokuBoardService & service, QWidget *parent = nullptr);
+    MainWindow(GUIModel & model, SudokuBoardService & service, CoinService & coinService, QWidget *parent = nullptr);
     ~MainWindow();
 
 private:
     Ui::MainWindow *ui;
 
 private:
-    void changeDifficulty();
-    void bomb1Cell();
-    void bomb2Cell();
-    void bomb3Cell();
+    void changeDifficulty(const std::string & difficulty);
+    void bombCell(int type);
 
 public slots:
     void gameEnded();
+    void startNewGame();
 };
 #endif // MAINWINDOW_H
