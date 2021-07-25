@@ -7,6 +7,7 @@
 #include <queue>
 #include <cmath>
 #include <unordered_map>
+#include <iostream>
 #include "SudokuBoardService.h"
 #include "../../generators/SudokuUniqueChecker.h"
 #include "../../bombs/BoardBombGrenade.h"
@@ -61,7 +62,7 @@ bool SudokuBoardService::checkWinner() const
     // First, check if the player entered all the values
     for(int i = 0; i < mCurrentBoard.getSize(); ++i)
         for(int j = 0; j < mCurrentBoard.getSize(); ++j)
-            if(mCurrentBoard.getCellValue(i, j) == UNASSIGNED)
+            if(mCurrentBoard.getCellValue(i, j) == UnassignedCell)
                 return false;
     // Then, check if the board is valid (the unique cells property)
     return this->checkValidBoard();
@@ -74,7 +75,7 @@ void SudokuBoardService::createNewBoard(const std::string &difficulty)
     for(int i = 0; i < mMaskBoard.getSize(); ++i)
         for(int j = 0; j < mMaskBoard.getSize(); ++j)
         {
-            if(mCurrentBoard.getCellValue(i, j) > 0)
+            if(mCurrentBoard.cellContainsValue(i, j))
                 mMaskBoard.setCellValue(i, j, OccupiedCell);
             else
                 mMaskBoard.setCellValue(i, j, FreeCell);

@@ -19,6 +19,8 @@ int GUIModel::columnCount(const QModelIndex &parent) const
     return this->mService.getCurrentBoard().getSize();
 }
 
+// todo: check why multiple cells are marked as clashing when they are not
+
 QVariant GUIModel::data(const QModelIndex &index, int role) const
 {
     int row = index.row();
@@ -28,7 +30,7 @@ QVariant GUIModel::data(const QModelIndex &index, int role) const
 
     if(role == Qt::DisplayRole || role == Qt::EditRole)
     {
-        if(value > 0)
+        if(this->mService.getCurrentBoard().cellContainsValue(row, column))
             return QString::number(value);
         return QVariant();
     }
@@ -39,25 +41,16 @@ QVariant GUIModel::data(const QModelIndex &index, int role) const
     }
     if (role == Qt::BackgroundRole)
     {
-        if(value == MISSING)
-        {
+        if(value == BombedCell)
             return QBrush{ QColor{100, 100, 100}};
-        }
         if(mService.checkClashingCell(row, column))
-        {
             return QBrush{QColor{232, 53, 53}};
-        }
         if(mService.checkOccupiedCell(row, column))
-        {
             return QBrush{ QColor{255, 255, 255}};
-        }
+        if(value != OccupiedCell)
+            return QBrush{ QColor{230, 230, 230}};
         else
-        {
-            if(value == 0)
-                return QBrush{ QColor{230, 230, 230}};
-            else
-                return QBrush{ QColor{240, 240, 240}};
-        }
+            return QBrush{ QColor{240, 240, 240}};
     }
     if (role == Qt::ForegroundRole)
     {
@@ -87,7 +80,6 @@ bool GUIModel::setData(const QModelIndex &index, const QVariant &value, int role
         auto response = this->mService.setBoardCell(row, column, userValue);
         if(response == InvalidCell)
             return false;
-        // todo: make the invalid lines/columns/grids red
         emit dataChanged(index, index, {role});
         if(mService.checkWinner())
             emit gameWon(1);

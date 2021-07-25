@@ -30,7 +30,7 @@ void BoardBombGrenade::bombBoard(SudokuBoard &board, int row, int column)
         {
             continue;
         }
-        board.setCellValue(attackedRow, attackedColumn, MISSING);
+        board.setCellValue(attackedRow, attackedColumn, BombedCell);
         used[attackDir] = true;
         attackedCells--;
     }

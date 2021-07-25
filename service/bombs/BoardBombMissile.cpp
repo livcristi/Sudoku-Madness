@@ -18,7 +18,7 @@ void BoardBombMissile::bombBoard(SudokuBoard &board, int row, int column)
     std::queue<std::pair<int, int>> moveQueue;
     std::queue<std::pair<int, int>> tempQueue;
     moveQueue.push({row, column});
-    board.setCellValue(row, column, MISSING);
+    board.setCellValue(row, column, BombedCell);
     visitedMap[row][column] = 1;
     int noSteps = (int)sqrt(board.getSize());
     for(int steps = 0; steps < noSteps; ++steps)
@@ -33,7 +33,7 @@ void BoardBombMissile::bombBoard(SudokuBoard &board, int row, int column)
                 int newY = point.second + dir[k][1];
                 if(newX < 0 || newX >= board.getSize() || newY < 0 || newY >= board.getSize() || visitedMap[newX][newY])
                     continue;
-                board.setCellValue(newX, newY, MISSING);
+                board.setCellValue(newX, newY, BombedCell);
                 tempQueue.push({newX, newY});
                 visitedMap[newX][newY] = 1;
             }

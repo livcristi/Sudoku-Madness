@@ -8,8 +8,25 @@
 #include <vector>
 #include <istream>
 #include <ostream>
-#define UNASSIGNED 0
-#define MISSING -1
+
+/// Enum for keeping possible values for the board
+enum MaskBoardCellVariants
+{
+    ValidValue = 0,
+    InvalidValue = 1,
+    InvalidRow = 2,
+    InvalidColumn = 4,
+    InvalidGrid = 8,
+    InvalidCell = 16,
+    OccupiedCell = 32,
+    FreeCell = 64,
+};
+
+enum BoardCellVariants
+{
+    BombedCell = 128,
+    UnassignedCell = 256
+};
 
 /// Class definition for the Sudoku Board used in the game
 
@@ -38,27 +55,25 @@ public:
     // Param column: The number of the column (starting from 0)
     // Param newValue: The value which will be added to the cell
 
+    bool cellContainsValue(int row, int column) const;
+    // Checks if a cell already contains a value (is not free or bombed)
+    // Param row: The number of the row (starting from 0)
+    // Param column: The number of the column (starting from 0)
+    // returns: True if the cell contains a value, false otherwise
+
     const std::vector<std::vector<int>> &getBoard() const;
     // Gets the board as a std::vector matrix
 
     friend std::istream & operator >> (std::istream & in, SudokuBoard & board);
-    friend std::ostream & operator << (std::ostream & out, const SudokuBoard &board);
+    // Istream operator overload
 
+    friend std::ostream & operator << (std::ostream & out, const SudokuBoard &board);
+    // Ostream operator overload
+
+    // Equality operators
     bool operator==(const SudokuBoard &rhs) const;
 
     bool operator!=(const SudokuBoard &rhs) const;
-};
-
-enum BoardCellVariants
-{
-    FreeCell = 0,
-    ValidValue = 0,
-    OccupiedCell = 1,
-    InvalidValue = 1,
-    InvalidRow = 2,
-    InvalidColumn = 4,
-    InvalidGrid = 8,
-    InvalidCell = 16
 };
 
 #endif //SUDOKU_MADNESS_SUDOKUBOARD_H

@@ -45,9 +45,9 @@ SudokuBoard SudokuBoardFactory::createSudokuBoard(const std::string & difficulty
     {
         int row = rand() % newBoard.getSize();
         int col = rand() % newBoard.getSize();
-        if(newBoard.getCellValue(row, col) != 0)
+        if(newBoard.getCellValue(row, col) != UnassignedCell)
         {
-            newBoard.setCellValue(row, col, UNASSIGNED);
+            newBoard.setCellValue(row, col, UnassignedCell);
             removedCells--;
         }
     }

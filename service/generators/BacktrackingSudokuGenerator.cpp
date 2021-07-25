@@ -5,6 +5,7 @@
 #include "BacktrackingSudokuGenerator.h"
 #include <algorithm>
 #include <random>
+#include <iostream>
 
 SudokuBoard BacktrackingSudokuGenerator::generateBoard(int size) {
     SudokuBoard newBoard(size);
@@ -54,8 +55,17 @@ bool BacktrackingSudokuGenerator::backtracking(SudokuBoard &board, int row, int 
     int newColumn = (column + 1 == board.getSize()) ? 0 : column + 1;
     int grid = row / size * size + column / size;
 
+//    for(int i = 0; i < board.getSize(); ++i)
+//    {
+//        for(int j = 0; j < board.getSize(); ++j)
+//        {
+//            std::cout << board.getCellValue(i, j) << " ";
+//        }
+//        std::cout << "\n";
+//    }
+
     // Skip assigned cells
-    if(board.getCellValue(row, column) > 0)
+    if(board.cellContainsValue(row, column))
         return backtracking(board, newRow, newColumn);
 
     for (int i = 1; i <= board.getSize(); ++i) {
@@ -66,14 +76,14 @@ bool BacktrackingSudokuGenerator::backtracking(SudokuBoard &board, int row, int 
             !SudokuUniqueChecker::checkColumn(board, column) ||
             !SudokuUniqueChecker::checkGrid(board, grid))
         {
-            board.setCellValue(row, column, UNASSIGNED);
+            board.setCellValue(row, column, UnassignedCell);
             continue;
         }
 
         if (backtracking(board, newRow, newColumn))
             return true;
 
-        board.setCellValue(row, column, UNASSIGNED);
+        board.setCellValue(row, column, UnassignedCell);
     }
     return false;
 }

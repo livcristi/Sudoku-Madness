@@ -1,12 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "../helper_widgets/dialog/difficultydialog.h"
 
 #include <QGraphicsDropShadowEffect>
 #include <QMessageBox>
 #include <QThread>
 #include <iostream>
-
-#include <gui/helper_widgets/dialog/difficultydialog.h>
 
 
 MainWindow::MainWindow(GUIModel & model, SudokuBoardService & service, CoinService & coinService, QWidget *parent)
@@ -21,7 +20,8 @@ MainWindow::MainWindow(GUIModel & model, SudokuBoardService & service, CoinServi
     ui->sudokuTableView->horizontalHeader()->hide();
     ui->sudokuTableView->verticalHeader()->hide();
 
-    QPixmap bkgnd(":/img/data/background.jpg");
+    //QPixmap bkgnd(":/img/data/background.jpg");
+    QPixmap bkgnd(R"(C:\Users\tereb\OneDrive\Desktop\Github-SM\Sudoku-Madness\data\background.jpg)");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
     palette.setBrush(QPalette::Background, bkgnd);
@@ -55,7 +55,9 @@ MainWindow::MainWindow(GUIModel & model, SudokuBoardService & service, CoinServi
     difficultyLabelEffect->setColor(Qt::black);
     ui->difficultyLabel->setGraphicsEffect(difficultyLabelEffect);
 
-    ui->chronometerUI->start();
+    this->chronometerWidget = new ChronoUI();
+    ui->chronometerLayout->addWidget(chronometerWidget);
+    this->chronometerWidget->start();
 }
 
 MainWindow::~MainWindow()
@@ -68,7 +70,7 @@ void MainWindow::gameEnded()
     QMessageBox msgBox;
     msgBox.setText("Congratulations! You won the game!");
     msgBox.exec();
-    this->mCoinService.addCoins(ui->difficultyTextLabel->text().toStdString(), ui->chronometerUI->getTimeMinutes());
+    this->mCoinService.addCoins(ui->difficultyTextLabel->text().toStdString(), this->chronometerWidget->getTimeMinutes());
     ui->coinsLabel->setText("Coins : " + QString::number(this->mCoinService.getCoins()));
 }
 
@@ -85,7 +87,7 @@ void MainWindow::startNewGame()
         ui->difficultyTextLabel->setText(QString::fromStdString(difficulty));
         this->changeDifficulty(difficulty);
         // Begin the chronometer
-        ui->chronometerUI->start();
+        this->chronometerWidget->start();
     }
 }
 

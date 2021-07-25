@@ -190,7 +190,7 @@ void Tester::testSudokuFactory()
     auto newBoard = testFactory.createSudokuBoard("easy");
     for(int i = 0; i < 9; ++i)
         for(int j = 0; j < 9; ++j)
-            assert(newBoard.getCellValue(i, j) == 0 || newBoard.getCellValue(i, j) == testBoard1.getCellValue(i, j));
+            assert(newBoard.getCellValue(i, j) == UnassignedCell || newBoard.getCellValue(i, j) == testBoard1.getCellValue(i, j));
 
     // Modify the repository
     testRepo.mSize = 2;
@@ -239,7 +239,7 @@ void Tester::testBoardService()
     assert(testService.setBoardCell(0, 0, 5) == InvalidCell);
 
     // Change the board to make it editable
-    testBoard1.setCellValue(0, 0, UNASSIGNED);
+    testBoard1.setCellValue(0, 0, UnassignedCell);
     testService.createNewBoard("easy");
 
     assert(testService.getCurrentBoard() == testBoard1);
@@ -271,7 +271,7 @@ void Tester::testBombing()
     testService.bombBoard(0, 0, 1);
     for(int i = 0; i < 2; ++i)
         for(int j = 0; j < 2; ++j)
-            assert(testService.getCurrentBoard().getCellValue(i, j) == MISSING);
+            assert(testService.getCurrentBoard().getCellValue(i, j) == BombedCell);
 
     // Test bomb type 1 on center cells
     testService.createNewBoard("easy");
@@ -280,7 +280,7 @@ void Tester::testBombing()
     for(int i = 0; i < 3; ++i)
         for(int j = 0; j < 3; ++j)
         {
-            if(testService.getCurrentBoard().getCellValue(i, j) == MISSING)
+            if(testService.getCurrentBoard().getCellValue(i, j) == BombedCell)
                 bombedCnt++;
         }
     assert(bombedCnt >= 5);
@@ -291,8 +291,8 @@ void Tester::testBombing()
     bombedCnt = 0;
     for(int i = 0; i < 9; ++i)
     {
-        if(testService.getCurrentBoard().getCellValue(i, 1) == MISSING ||
-        testService.getCurrentBoard().getCellValue(1, i) == MISSING)
+        if(testService.getCurrentBoard().getCellValue(i, 1) == BombedCell ||
+           testService.getCurrentBoard().getCellValue(1, i) == BombedCell)
             bombedCnt++;
     }
     assert(bombedCnt == 9);
@@ -305,7 +305,7 @@ void Tester::testBombing()
     {
         for(int j = 0; j < 9; ++j)
         {
-            if(testService.getCurrentBoard().getCellValue(i, j) == MISSING)
+            if(testService.getCurrentBoard().getCellValue(i, j) == BombedCell)
                 bombedCnt++;
         }
     }
@@ -327,13 +327,18 @@ void Tester::testMarking()
     SudokuBoardService testService(mockFactory);
 
     // Set an invalid value and check that the other cells were marked
-    testBoard1.setCellValue(0, 0, 0);
+    testBoard1.setCellValue(0, 0, UnassignedCell);
     testService.createNewBoard("easy");
     testService.setBoardCell(0, 0, 1);
     assert(testService.checkClashingCell(0, 0));
     assert(testService.checkClashingCell(0, 3));
     assert(testService.checkClashingCell(8, 0));
     assert(testService.checkClashingCell(1, 2));
+    int count = 0;
+    for(int i = 0; i < 9; ++i)
+        for(int j = 0; j < 9; ++j)
+            count += testService.checkClashingCell(i, j);
+    assert(count == 4);
 
     // Make a correct mode and check again
     testService.setBoardCell(0, 0, 5);
@@ -341,6 +346,11 @@ void Tester::testMarking()
     assert(!testService.checkClashingCell(0, 3));
     assert(!testService.checkClashingCell(8, 0));
     assert(!testService.checkClashingCell(1, 2));
+    count = 0;
+    for(int i = 0; i < 9; ++i)
+        for(int j = 0; j < 9; ++j)
+            count += testService.checkClashingCell(i, j);
+    assert(count == 0);
 
     assert(testService.checkWinner());
 }

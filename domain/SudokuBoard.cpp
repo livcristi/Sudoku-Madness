@@ -7,7 +7,7 @@
 SudokuBoard::SudokuBoard(int size)
 {
     for(int i = 0; i < size * size; ++i)
-        mBoard.emplace_back(size * size, 0);
+        mBoard.emplace_back(size * size, UnassignedCell);
 }
 
 SudokuBoard::SudokuBoard(const SudokuBoard &sudokuBoard)
@@ -71,5 +71,10 @@ bool SudokuBoard::operator==(const SudokuBoard &rhs) const
 bool SudokuBoard::operator!=(const SudokuBoard &rhs) const
 {
     return !(rhs == *this);
+}
+
+bool SudokuBoard::cellContainsValue(int row, int column) const
+{
+    return (mBoard[row][column] != BombedCell && mBoard[row][column] != UnassignedCell);
 }
 

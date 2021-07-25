@@ -54,7 +54,6 @@ public:
 
     void bombBoard(int row, int column, int bombType);
     // Bombs a cell at the given row and column with a bomb of the specified type
-    // todo: refactor the method
 private:
     void markClashingCells();
 };

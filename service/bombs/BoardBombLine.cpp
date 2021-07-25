@@ -11,11 +11,11 @@ void BoardBombLine::bombBoard(SudokuBoard &board, int row, int column)
     if(attack == 0)
     {
         for(int i = 0; i < board.getSize(); ++i)
-            board.setCellValue(row, i, MISSING);
+            board.setCellValue(row, i, BombedCell);
     }
     else
     {
         for(int i = 0; i < board.getSize(); ++i)
-            board.setCellValue(i, column, MISSING);
+            board.setCellValue(i, column, BombedCell);
     }
 }
