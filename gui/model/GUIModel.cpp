@@ -36,7 +36,7 @@ QVariant GUIModel::data(const QModelIndex &index, int role) const
     }
     if (role == Qt::FontRole)
     {
-        QFont font("Bahnschrift Light SemiCondensed", 12);
+        QFont font("Bahnschrift Light SemiCondensed", 13);
         return font;
     }
     if (role == Qt::BackgroundRole)

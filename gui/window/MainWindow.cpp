@@ -8,8 +8,9 @@
 #include <iostream>
 
 
-MainWindow::MainWindow(GUIModel & model, SudokuBoardService & service, CoinService & coinService, QWidget *parent)
-    : QMainWindow(parent), mModel(model), mService(service), mCoinService(coinService)
+MainWindow::MainWindow(GUIModel & model, SudokuBoardDelegate & delegate, SudokuBoardService & service,
+                       CoinService & coinService, QWidget *parent)
+    : QMainWindow(parent), mModel(model), mDelegate(delegate), mService(service), mCoinService(coinService)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -19,6 +20,8 @@ MainWindow::MainWindow(GUIModel & model, SudokuBoardService & service, CoinServi
     ui->sudokuTableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->sudokuTableView->horizontalHeader()->hide();
     ui->sudokuTableView->verticalHeader()->hide();
+    ui->sudokuTableView->setItemDelegate(&mDelegate);
+    ui->sudokuTableView->setShowGrid(false);
 
     //QPixmap bkgnd(":/img/data/background.jpg");
     QPixmap bkgnd(R"(C:\Users\tereb\OneDrive\Desktop\Github-SM\Sudoku-Madness\data\background.jpg)");
@@ -41,21 +44,17 @@ MainWindow::MainWindow(GUIModel & model, SudokuBoardService & service, CoinServi
 
     QObject::connect(ui->quitButton, &QPushButton::clicked, this, &QMainWindow::close);
 
+    applyDropEffect(ui->menuSudokuLabel, 0);
+    applyDropEffect(ui->menuMadnessLabel, 0);
+    applyDropEffect(ui->difficultyLabel);
+    applyDropEffect(ui->difficultyTextLabel);
+    applyDropEffect(ui->bombShopLabel);
+    applyDropEffect(ui->grenadePriceLabel);
+    applyDropEffect(ui->linePriceLabel);
+    applyDropEffect(ui->missilePriceLabel);
+    applyDropEffect(ui->coinsLabel);
 
-    auto sudokuLabelEffect = new QGraphicsDropShadowEffect();
-    sudokuLabelEffect->setOffset(-2, -2);
-    sudokuLabelEffect->setColor(Qt::black);
-    ui->menuSudokuLabel->setGraphicsEffect(sudokuLabelEffect);
-    auto madnessLabelEffect = new QGraphicsDropShadowEffect();
-    madnessLabelEffect->setOffset(-2, -2);
-    madnessLabelEffect->setColor(Qt::black);
-    ui->menuMadnessLabel->setGraphicsEffect(madnessLabelEffect);
-    auto difficultyLabelEffect = new QGraphicsDropShadowEffect();
-    difficultyLabelEffect->setOffset(-1, -2);
-    difficultyLabelEffect->setColor(Qt::black);
-    ui->difficultyLabel->setGraphicsEffect(difficultyLabelEffect);
-
-    this->chronometerWidget = new ChronoUI();
+    this->chronometerWidget = new ChronoUI(this);
     ui->chronometerLayout->addWidget(chronometerWidget);
     this->chronometerWidget->start();
 }
@@ -110,6 +109,17 @@ void MainWindow::bombCell(int type)
     int row = ui->sudokuTableView->selectionModel()->currentIndex().row();
     int column = ui->sudokuTableView->selectionModel()->currentIndex().column();
 
+    // Check if the player has enough coins
+    int coins = type == 1 ? 10 : type == 2 ? 20 : 40;
+    if(!mCoinService.subtractCoins(coins))
+    {
+        QMessageBox msgBox;
+        msgBox.setText("You do not have enough coins for that bomb");
+        msgBox.exec();
+        return;
+    }
+    ui->coinsLabel->setText("Coins : " + QString::number(this->mCoinService.getCoins()));
+
     mService.bombBoard(row, column, type);
     for(int i = 0; i < 9; ++i)
     {
@@ -118,5 +128,25 @@ void MainWindow::bombCell(int type)
             auto modelIndex = this->mModel.index(i, j);
             emit this->mModel.dataChanged(modelIndex, modelIndex);
         }
+    }
+}
+
+void MainWindow::applyDropEffect(QLabel * label, int page)
+{
+    if(page == 1)
+    {
+        // Apply on menu page
+        auto newLabelEffect = new QGraphicsDropShadowEffect();
+        newLabelEffect->setOffset(-2, -2);
+        newLabelEffect->setColor(Qt::black);
+        label->setGraphicsEffect(newLabelEffect);
+    }
+    else
+    {
+        // Apply on game page
+        auto newLabelEffect = new QGraphicsDropShadowEffect();
+        newLabelEffect->setOffset(-1, -2);
+        newLabelEffect->setColor(Qt::black);
+        label->setGraphicsEffect(newLabelEffect);
     }
 }

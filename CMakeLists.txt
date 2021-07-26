@@ -43,7 +43,7 @@ add_executable(Sudoku_Madness
         gui/helper_widgets/chronometer/chronoui.cpp
         gui/helper_widgets/chronometer/chronoui.h
         gui/helper_widgets/dialog/difficultydialog.cpp
-        gui/helper_widgets/dialog/difficultydialog.h)
+        gui/helper_widgets/dialog/difficultydialog.h gui/delegate/SudokuBoardDelegate.cpp gui/delegate/SudokuBoardDelegate.h)
 
 file(COPY testing/data/testing_data.txt
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

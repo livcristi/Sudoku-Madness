@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>820</width>
-    <height>569</height>
+    <width>880</width>
+    <height>590</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,7 +21,7 @@
        <number>1</number>
       </property>
       <widget class="QWidget" name="gamePage">
-       <layout class="QHBoxLayout" name="horizontalLayout" stretch="8,5">
+       <layout class="QHBoxLayout" name="horizontalLayout" stretch="13,0">
         <item>
          <widget class="QTableView" name="sudokuTableView">
           <property name="sizePolicy">
@@ -60,260 +60,333 @@
          </widget>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,2,1,2,1,5,1,2,0,0,0,0">
-          <item>
-           <spacer name="verticalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_3">
-            <item>
-             <layout class="QHBoxLayout" name="chronometerLayout"/>
-            </item>
-            <item>
-             <widget class="QPushButton" name="stopStartButton">
-              <property name="text">
-               <string>Stop/Start time</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <spacer name="verticalSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4">
-            <item>
-             <widget class="QLabel" name="difficultyLabel">
-              <property name="styleSheet">
-               <string notr="true">font: 18pt &quot;Cooper Black&quot;;
+         <widget class="QWidget" name="optionMenu" native="true">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgba(0, 85, 0, 150);
+border-radius: 15px;</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,2,1,2,1,0,1,2,0,0,0,0">
+           <item>
+            <spacer name="verticalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="2,1">
+             <item>
+              <layout class="QHBoxLayout" name="chronometerLayout"/>
+             </item>
+             <item>
+              <widget class="QPushButton" name="stopStartButton">
+               <property name="styleSheet">
+                <string notr="true">background-color: rgba(40, 170, 11, 240);
+color: black;
+border-style: outset;
+border-width: 2px;
+border-radius: 10px;
+border-color: beige;
+padding: 6px;
+font: 15pt &quot;Bauhaus 93&quot;;</string>
+               </property>
+               <property name="text">
+                <string>Stop time</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
+             <item>
+              <widget class="QLabel" name="difficultyLabel">
+               <property name="styleSheet">
+                <string notr="true">font: 18pt &quot;Cooper Black&quot;;
+background-color: rgba(173, 173, 173, 0);
+color: beige;</string>
+               </property>
+               <property name="text">
+                <string>Difficulty</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="difficultyTextLabel">
+               <property name="styleSheet">
+                <string notr="true">font: 18pt &quot;Cooper Black&quot;;
 background-color: rgba(173, 173, 173, 10);
-color: black;</string>
-              </property>
-              <property name="text">
-               <string>Difficulty</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="difficultyTextLabel">
-              <property name="text">
-               <string>placeholder</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <spacer name="verticalSpacer_2">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout_5" stretch="5,8">
-            <item alignment="Qt::AlignHCenter">
-             <widget class="QLabel" name="label_4">
-              <property name="styleSheet">
-               <string notr="true">font: 20pt &quot;Cooper Black&quot;;
+color: beige;</string>
+               </property>
+               <property name="text">
+                <string>smth</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="bombShop" stretch="5,8">
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLabel" name="bombShopLabel">
+               <property name="styleSheet">
+                <string notr="true">font: 20pt &quot;Cooper Black&quot;;
 background-color: rgba(173, 173, 173, 10);
-color: black;</string>
-              </property>
-              <property name="text">
-               <string>Bomb Shop</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_5">
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout_4" stretch="2,3">
-                <item>
-                 <widget class="QPushButton" name="pushButton">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>Bomb1</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLabel" name="label">
-                  <property name="styleSheet">
-                   <string notr="true">font: 10pt &quot;Cooper Black&quot;;
+color: beige;</string>
+               </property>
+               <property name="text">
+                <string>Bomb Shop</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_5">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_4" stretch="2,3">
+                 <item>
+                  <widget class="QPushButton" name="pushButton">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgba(40, 170, 11, 240);
+color: black;
+border-style: outset;
+border-width: 2px;
+border-radius: 10px;
+border-color: beige;
+padding: 6px;
+font: 15pt &quot;Bauhaus 93&quot;;</string>
+                   </property>
+                   <property name="text">
+                    <string>Grenade</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="grenadePriceLabel">
+                   <property name="styleSheet">
+                    <string notr="true">font: 10pt &quot;Cooper Black&quot;;
 background-color: rgba(173, 173, 173, 10);
-color: black;</string>
-                  </property>
-                  <property name="text">
-                   <string>Price:
+color: beige;</string>
+                   </property>
+                   <property name="text">
+                    <string>Price:
 10 coins</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout_6">
-                <item>
-                 <widget class="QPushButton" name="pushButton_2">
-                  <property name="text">
-                   <string>Bomb2</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLabel" name="label_2">
-                  <property name="styleSheet">
-                   <string notr="true">font: 10pt &quot;Cooper Black&quot;;
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_6">
+                 <item>
+                  <widget class="QPushButton" name="pushButton_2">
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgba(40, 170, 11, 240);
+color: black;
+border-style: outset;
+border-width: 2px;
+border-radius: 10px;
+border-color: beige;
+padding: 6px;
+font: 15pt &quot;Bauhaus 93&quot;;</string>
+                   </property>
+                   <property name="text">
+                    <string>Line</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="linePriceLabel">
+                   <property name="styleSheet">
+                    <string notr="true">font: 10pt &quot;Cooper Black&quot;;
 background-color: rgba(173, 173, 173, 10);
-color: black;</string>
-                  </property>
-                  <property name="text">
-                   <string>Price:
+color: beige;</string>
+                   </property>
+                   <property name="text">
+                    <string>Price:
  20 coins</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout_7">
-                <item>
-                 <widget class="QPushButton" name="pushButton_3">
-                  <property name="text">
-                   <string>Bomb3</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLabel" name="label_3">
-                  <property name="styleSheet">
-                   <string notr="true">font: 10pt &quot;Cooper Black&quot;;
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_7">
+                 <item>
+                  <widget class="QPushButton" name="pushButton_3">
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgba(40, 170, 11, 240);
+color: black;
+border-style: outset;
+border-width: 2px;
+border-radius: 10px;
+border-color: beige;
+padding: 6px;
+font: 15pt &quot;Bauhaus 93&quot;;</string>
+                   </property>
+                   <property name="text">
+                    <string>Missile</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="missilePriceLabel">
+                   <property name="styleSheet">
+                    <string notr="true">font: 10pt &quot;Cooper Black&quot;;
 background-color: rgba(173, 173, 173, 10);
-color: black;</string>
-                  </property>
-                  <property name="text">
-                   <string>Price:
+color: beige;</string>
+                   </property>
+                   <property name="text">
+                    <string>Price:
  40 coins</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <spacer name="verticalSpacer_3">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_6">
-            <item>
-             <widget class="QLabel" name="coinsLabel">
-              <property name="styleSheet">
-               <string notr="true">font: 20pt &quot;Cooper Black&quot;;
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_6">
+             <item>
+              <widget class="QLabel" name="coinsLabel">
+               <property name="styleSheet">
+                <string notr="true">font: 20pt &quot;Cooper Black&quot;;
 background-color: rgba(173, 173, 173, 10);
-color: black;</string>
-              </property>
-              <property name="text">
-               <string>Coins: 0</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <spacer name="verticalSpacer_5">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="startNewButton">
-            <property name="text">
-             <string>Start new game</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="saveQuitButton">
-            <property name="text">
-             <string>Save and quit</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="verticalSpacer_6">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
+color: beige;</string>
+               </property>
+               <property name="text">
+                <string>Coins: 0</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="startNewButton">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgba(40, 170, 11, 240);
+color: black;
+border-style: outset;
+border-width: 2px;
+border-radius: 10px;
+border-color: beige;
+min-width: 10em;
+padding: 6px;
+font: 15pt &quot;Bauhaus 93&quot;;</string>
+             </property>
+             <property name="text">
+              <string>Start new game</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="saveQuitButton">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgba(40, 170, 11, 240);
+color: black;
+border-style: outset;
+border-width: 2px;
+border-radius: 10px;
+border-color: beige;
+min-width: 10em;
+padding: 6px;
+font: 15pt &quot;Bauhaus 93&quot;;</string>
+             </property>
+             <property name="text">
+              <string>Save and quit</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_6">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -504,7 +577,7 @@ font: 15pt &quot;Bauhaus 93&quot;;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>820</width>
+     <width>880</width>
      <height>25</height>
     </rect>
    </property>

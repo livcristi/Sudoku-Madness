@@ -1,5 +1,7 @@
 #include "chronoui.h"
 
+#include <QGraphicsDropShadowEffect>
+
 void Chronometer::restart()
 {
     mTimer.restart();
@@ -13,8 +15,14 @@ QTime Chronometer::getTime()
 ChronoUI::ChronoUI(QWidget * parent) : QWidget(parent)
 {
     mTimeLabel = new QLabel(this);
+    mTimeLabel->setStyleSheet("font: 18pt \"Cooper Black\";background-color: rgba(173, 173, 173, 0);color: beige;");
+    mTimeLabel->setMinimumWidth(100);
+    auto labelEffect = new QGraphicsDropShadowEffect();
+    labelEffect->setOffset(-1, -2);
+    labelEffect->setColor(Qt::black);
+    mTimeLabel->setGraphicsEffect(labelEffect);
 
-    mTimeLabel->setText("Time: 0 S");
+    mTimeLabel->setText("0 S");
     connect(&mTimer, &QTimer::timeout, this, &ChronoUI::updateTime);
 }
 
@@ -31,14 +39,14 @@ void ChronoUI::updateTime()
 
 void ChronoUI::start()
 {
-    mTimeLabel->setText("Time: 0 S");
+    mTimeLabel->setText("0 S");
     mChronometer.restart();
     mTimer.start(100);
 }
 
 QString ChronoUI::getTimeString()
 {
-    QString resultTime = "Time: ";
+    QString resultTime = "";
     auto takenTime = mChronometer.getTime();
     int hours = takenTime.hour();
     if(hours > 0)

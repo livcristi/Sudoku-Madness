@@ -9,6 +9,7 @@ CONFIG += mChronometer++14
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    gui/delegate/SudokuBoardDelegate.cpp \
     gui/helper_widgets/chronometer/chronoui.cpp \
     gui/helper_widgets/dialog/difficultydialog.cpp \
     gui/window/mainwindow.cpp \
@@ -27,6 +28,7 @@ SOURCES += \
     testing/Tester.cpp
 
 HEADERS += \
+    gui/delegate/SudokuBoardDelegate.h \
     gui/helper_widgets/chronometer/chronoui.h \
     gui/helper_widgets/dialog/difficultydialog.h \
     gui/window/mainwindow.h \

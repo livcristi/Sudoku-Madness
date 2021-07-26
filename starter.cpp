@@ -7,6 +7,7 @@
 #include "service/game_service/sudoku_service/SudokuBoardService.h"
 #include "gui/model/GUIModel.h"
 #include "gui/window/mainwindow.h"
+#include "gui/delegate/SudokuBoardDelegate.h"
 
 #include <QApplication>
 #include <QDir>
@@ -39,7 +40,8 @@ int main(int argc, char *argv[])
     CoinService coinService(getDataFile(2));
 
     GUIModel model(boardService);
-    MainWindow mainWindow(model, boardService, coinService);
+    SudokuBoardDelegate delegate(boardService);
+    MainWindow mainWindow(model,  delegate,boardService, coinService);
     mainWindow.show();
 
     mainWindow.show();
