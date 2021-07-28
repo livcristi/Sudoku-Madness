@@ -2,21 +2,42 @@
 
 #include <QGraphicsDropShadowEffect>
 
+Chronometer::Chronometer(int seconds) : elapsedSeconds(seconds), isStopped(true)
+{}
+
 void Chronometer::restart()
 {
+    elapsedSeconds = 0;
     mTimer.restart();
 }
 
 QTime Chronometer::getTime()
 {
-    return QTime(0,0).addMSecs(mTimer.elapsed());
+    if(isStopped)
+        return {elapsedSeconds / 3600, (elapsedSeconds % 3600) / 60, elapsedSeconds % 60};
+    else
+        return QTime(elapsedSeconds / 3600, (elapsedSeconds % 3600) / 60, elapsedSeconds % 60).addMSecs((int)mTimer.elapsed());
 }
 
-ChronoUI::ChronoUI(QWidget * parent) : QWidget(parent)
+void Chronometer::start()
 {
+    isStopped = false;
+    mTimer.restart();
+}
+
+void Chronometer::stop()
+{
+    isStopped = true;
+    elapsedSeconds += (int) mTimer.elapsed() / 1000;
+}
+
+ChronoUI::ChronoUI(int seconds, QWidget * parent) : QWidget(parent), savedSeconds(seconds)
+{
+    mChronometer = Chronometer(savedSeconds);
+
     mTimeLabel = new QLabel(this);
     mTimeLabel->setStyleSheet("font: 18pt \"Cooper Black\";background-color: rgba(173, 173, 173, 0);color: beige;");
-    mTimeLabel->setMinimumWidth(100);
+    mTimeLabel->setMinimumWidth(200);
     auto labelEffect = new QGraphicsDropShadowEffect();
     labelEffect->setOffset(-1, -2);
     labelEffect->setColor(Qt::black);
@@ -39,8 +60,8 @@ void ChronoUI::updateTime()
 
 void ChronoUI::start()
 {
-    mTimeLabel->setText("0 S");
-    mChronometer.restart();
+    mChronometer.start();
+    updateTime();
     mTimer.start(100);
 }
 
@@ -61,4 +82,28 @@ QString ChronoUI::getTimeString()
     int seconds = takenTime.second();
     resultTime += QString::number(seconds) + " S ";
     return resultTime;
+}
+
+void ChronoUI::stop()
+{
+    mChronometer.stop();
+}
+
+void ChronoUI::restart()
+{
+    mTimeLabel->setText("0 S");
+    mChronometer.restart();
+    mTimer.start(100);
+}
+
+void ChronoUI::addSeconds(int seconds)
+{
+    savedSeconds = seconds;
+    mChronometer = Chronometer(seconds);
+}
+
+int ChronoUI::getTimeSeconds()
+{
+    auto chronoTime = mChronometer.getTime();
+    return chronoTime.hour() * 3600 + chronoTime.minute() * 60 + chronoTime.second();
 }

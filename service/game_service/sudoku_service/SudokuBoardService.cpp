@@ -2,24 +2,29 @@
 // Created by tereb on 16.07.2021.
 //
 
+#include <utility>
 #include <vector>
 #include <array>
 #include <queue>
 #include <cmath>
 #include <unordered_map>
 #include <iostream>
+#include <fstream>
 #include "SudokuBoardService.h"
 #include "../../generators/SudokuUniqueChecker.h"
 #include "../../bombs/BoardBombGrenade.h"
 #include "../../bombs/BoardBombLine.h"
 #include "../../bombs/BoardBombMissile.h"
+#include "../../../domain/GameState.h"
 
-SudokuBoardService::SudokuBoardService(SudokuBoardFactory &tSudokuFactory) : mSudokuFactory(tSudokuFactory)
+SudokuBoardService::SudokuBoardService(SudokuBoardFactory &tSudokuFactory, std::string  tSaveFile) :
+mSudokuFactory(tSudokuFactory), saveFile(std::move(tSaveFile))
 {
     this->bombs.push_back(std::unique_ptr<BoardBomb>(new BoardBombGrenade));
     this->bombs.push_back(std::unique_ptr<BoardBomb>(new BoardBombLine));
     this->bombs.push_back(std::unique_ptr<BoardBomb>(new BoardBombMissile));
-    this->createNewBoard("easy");
+    currentDifficulty = "easy";
+    this->createNewBoard(currentDifficulty);
 }
 
 const SudokuBoard & SudokuBoardService::getCurrentBoard()
@@ -70,6 +75,7 @@ bool SudokuBoardService::checkWinner() const
 
 void SudokuBoardService::createNewBoard(const std::string &difficulty)
 {
+    currentDifficulty = difficulty;
     mCurrentBoard = this->mSudokuFactory.createSudokuBoard(difficulty);
     mMaskBoard = SudokuBoard();
     for(int i = 0; i < mMaskBoard.getSize(); ++i)
@@ -110,4 +116,32 @@ void SudokuBoardService::markClashingCells()
         SudokuUniqueChecker::markColumn(mCurrentBoard, mMaskBoard, index);
         SudokuUniqueChecker::markGird(mCurrentBoard, mMaskBoard, index);
     }
+}
+
+int SudokuBoardService::loadGameFromFile()
+{
+    std::ifstream savedFile(saveFile);
+    if(!savedFile || savedFile.peek() == std::ifstream::traits_type::eof())
+        return -1;
+    GameState oldState;
+    savedFile >> oldState;
+    savedFile.close();
+    mCurrentBoard = oldState.getNormalBoard();
+    mMaskBoard = oldState.getMaskBoard();
+    currentDifficulty = oldState.getDifficulty();
+    return oldState.getSeconds();
+}
+
+void SudokuBoardService::saveGameToFile(int seconds)
+{
+    std::ofstream savedFile(saveFile);
+    if(!savedFile)
+        throw std::runtime_error("Cannot save the game");
+    GameState currentState(mCurrentBoard, mMaskBoard, currentDifficulty, seconds);
+    savedFile << currentState;
+    savedFile.close();
+}
+
+const std::string &SudokuBoardService::getCurrentDifficulty() const {
+    return currentDifficulty;
 }

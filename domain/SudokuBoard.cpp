@@ -3,6 +3,8 @@
 //
 
 #include "SudokuBoard.h"
+#include "GameState.h"
+
 
 SudokuBoard::SudokuBoard(int size)
 {
@@ -43,7 +45,7 @@ std::ostream &operator<<(std::ostream &os, const SudokuBoard &board)
     {
         for(int cell : row)
         {
-            os << cell;
+            os << cell << ' ';
         }
     }
     return os;
@@ -55,9 +57,7 @@ std::istream &operator>>(std::istream &in, SudokuBoard &board)
     {
         for(int & cell : row)
         {
-            char value;
-            in >> value;
-            cell = value - '0';
+            in >> cell;
         }
     }
     return in;

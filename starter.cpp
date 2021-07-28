@@ -15,27 +15,37 @@
 // Get the path to the data file
 std::string getDataFile(int type = 1)
 {
-    if(type == 1)
-        return R"(C:\Users\tereb\OneDrive\Desktop\Github-SM\Sudoku-Madness\data\boards.txt)";
-    else
-        return R"(C:\Users\tereb\OneDrive\Desktop\Github-SM\Sudoku-Madness\data\coins.txt)";
+//    if(type == 1)
+//        return R"(C:\Users\tereb\OneDrive\Desktop\Github-SM\Sudoku-Madness\data\boards.txt)";
+//    else if(type == 2)
+//        return R"(C:\Users\tereb\OneDrive\Desktop\Github-SM\Sudoku-Madness\data\coins.txt)";
+//    else
+//        return R"(C:\Users\tereb\OneDrive\Desktop\Github-SM\Sudoku-Madness\data\savefile.txt)";
     std::string dirPath = QDir::currentPath().toStdString();
     while(dirPath[dirPath.size() - 1] != '/')
         dirPath.pop_back();
-    dirPath += "Sudoku-Madness/data/boards.txt";
+    switch (type) {
+        case 1:
+            dirPath += "Sudoku-Madness/data/boards.txt";
+            break;
+        case 2:
+            dirPath += "Sudoku-Madness/data/coins.txt";
+            break;
+        default:
+            dirPath += "Sudoku-Madness/data/savefile.txt";
+    }
     return dirPath;
 }
-
 
 int main(int argc, char *argv[])
 {
     srand(time(0));
-    Tester::testAll();
+    // Tester::testAll();
     QApplication a(argc, argv);
 
     SudokuRepository repository(getDataFile());
     SudokuBoardFactory factory(repository);
-    SudokuBoardService boardService(factory);
+    SudokuBoardService boardService(factory, getDataFile(3));
 
     CoinService coinService(getDataFile(2));
 

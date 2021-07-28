@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include <QThread>
 #include <iostream>
+#include <QState>
 
 
 MainWindow::MainWindow(GUIModel & model, SudokuBoardDelegate & delegate, SudokuBoardService & service,
@@ -15,48 +16,8 @@ MainWindow::MainWindow(GUIModel & model, SudokuBoardDelegate & delegate, SudokuB
 {
     ui->setupUi(this);
 
-    ui->sudokuTableView->setModel(&mModel);
-    ui->sudokuTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->sudokuTableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->sudokuTableView->horizontalHeader()->hide();
-    ui->sudokuTableView->verticalHeader()->hide();
-    ui->sudokuTableView->setItemDelegate(&mDelegate);
-    ui->sudokuTableView->setShowGrid(false);
-
-    //QPixmap bkgnd(":/img/data/background.jpg");
-    QPixmap bkgnd(R"(C:\Users\tereb\OneDrive\Desktop\Github-SM\Sudoku-Madness\data\background.jpg)");
-    bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
-    QPalette palette;
-    palette.setBrush(QPalette::Background, bkgnd);
-    this->setPalette(palette);
-//    this->centralWidget()->setStyleSheet("background-image:url(\":/img/data/background.jpg\"); background-position: center; ");
-
-    ui->coinsLabel->setText("Coins : " + QString::number(this->mCoinService.getCoins()));
-
-    QObject::connect(&mModel, &GUIModel::gameWon, this, &MainWindow::gameEnded);
-    QObject::connect(ui->pushButton, &QPushButton::clicked, this, [=](){this->bombCell(1);});
-    QObject::connect(ui->pushButton_2, &QPushButton::clicked, this, [=](){this->bombCell(2);});
-    QObject::connect(ui->pushButton_3, &QPushButton::clicked, this, [=](){this->bombCell(3);});
-    QObject::connect(ui->startButton, &QPushButton::clicked, this, &MainWindow::startNewGame);
-    QObject::connect(ui->startNewButton, &QPushButton::clicked, this, &MainWindow::startNewGame);
-
-    ui->continueButton->setDisabled(true);
-
-    QObject::connect(ui->quitButton, &QPushButton::clicked, this, &QMainWindow::close);
-
-    applyDropEffect(ui->menuSudokuLabel, 0);
-    applyDropEffect(ui->menuMadnessLabel, 0);
-    applyDropEffect(ui->difficultyLabel);
-    applyDropEffect(ui->difficultyTextLabel);
-    applyDropEffect(ui->bombShopLabel);
-    applyDropEffect(ui->grenadePriceLabel);
-    applyDropEffect(ui->linePriceLabel);
-    applyDropEffect(ui->missilePriceLabel);
-    applyDropEffect(ui->coinsLabel);
-
-    this->chronometerWidget = new ChronoUI(this);
-    ui->chronometerLayout->addWidget(chronometerWidget);
-    this->chronometerWidget->start();
+    this->setUpGUI();
+    this->connectSignalAndSlots();
 }
 
 MainWindow::~MainWindow()
@@ -149,4 +110,113 @@ void MainWindow::applyDropEffect(QLabel * label, int page)
         newLabelEffect->setColor(Qt::black);
         label->setGraphicsEffect(newLabelEffect);
     }
+}
+
+void MainWindow::setUpGUI()
+{
+    ui->sudokuTableView->setModel(&mModel);
+    ui->sudokuTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->sudokuTableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->sudokuTableView->horizontalHeader()->hide();
+    ui->sudokuTableView->verticalHeader()->hide();
+    ui->sudokuTableView->setItemDelegate(&mDelegate);
+    ui->sudokuTableView->setShowGrid(false);
+
+    QPixmap bkgnd(":/img/data/background.jpg");
+    //QPixmap bkgnd(R"(C:\Users\tereb\OneDrive\Desktop\Github-SM\Sudoku-Madness\data\background.jpg)");
+    bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
+    QPalette palette;
+    palette.setBrush(QPalette::Background, bkgnd);
+    this->setPalette(palette);
+//    this->centralWidget()->setStyleSheet("background-image:url(\":/img/data/background.jpg\"); background-position: center; ");
+
+    ui->coinsLabel->setText("Coins : " + QString::number(this->mCoinService.getCoins()));
+
+    applyDropEffect(ui->menuSudokuLabel, 0);
+    applyDropEffect(ui->menuMadnessLabel, 0);
+    applyDropEffect(ui->difficultyLabel);
+    applyDropEffect(ui->difficultyTextLabel);
+    applyDropEffect(ui->bombShopLabel);
+    applyDropEffect(ui->grenadePriceLabel);
+    applyDropEffect(ui->linePriceLabel);
+    applyDropEffect(ui->missilePriceLabel);
+    applyDropEffect(ui->coinsLabel);
+
+    this->chronometerWidget = new ChronoUI(0, this);
+    ui->chronometerLayout->addWidget(chronometerWidget);
+    this->chronometerWidget->start();
+
+    // Start stop button
+    machine = new QStateMachine(this);
+    auto off = new QState();
+    off->assignProperty(ui->stopStartButton, "text", "Stop time");
+    off->setObjectName("off");
+
+    auto on = new QState();
+    on->setObjectName("on");
+    on->assignProperty(ui->stopStartButton, "text", "Start time");
+
+    off->addTransition(ui->stopStartButton, &QAbstractButton::clicked, on);
+    on->addTransition(ui->stopStartButton, &QAbstractButton::clicked, off);
+    machine->addState(off);
+    machine->addState(on);
+    machine->setInitialState(off);
+    machine->start();
+}
+
+void MainWindow::connectSignalAndSlots()
+{
+    QObject::connect(&mModel, &GUIModel::gameWon, this, &MainWindow::gameEnded);
+    QObject::connect(ui->pushButton, &QPushButton::clicked, this, [=](){this->bombCell(1);});
+    QObject::connect(ui->pushButton_2, &QPushButton::clicked, this, [=](){this->bombCell(2);});
+    QObject::connect(ui->pushButton_3, &QPushButton::clicked, this, [=](){this->bombCell(3);});
+    QObject::connect(ui->startButton, &QPushButton::clicked, this, &MainWindow::startNewGame);
+    QObject::connect(ui->startNewButton, &QPushButton::clicked, this, &MainWindow::startNewGame);
+
+    QObject::connect(ui->quitButton, &QPushButton::clicked, this, &QMainWindow::close);
+    QObject::connect(ui->saveQuitButton, &QPushButton::clicked, this, &MainWindow::saveAndQuit);
+    QObject::connect(ui->continueButton, &QPushButton::clicked, this, &MainWindow::continueGame);
+
+    // Start stop button
+    QObject::connect(ui->stopStartButton, &QPushButton::clicked, this, &MainWindow::startStopTimer);
+}
+
+void MainWindow::startStopTimer()
+{
+    // todo: overcome cheating somehow
+    if(ui->stopStartButton->text() == "Stop time")
+    {
+        this->chronometerWidget->stop();
+    }
+    else
+    {
+        this->chronometerWidget->start();
+    }
+}
+
+void MainWindow::continueGame()
+{
+    int seconds = this->mService.loadGameFromFile();
+    if(seconds < 0)
+    {
+        QMessageBox msgBox;
+        msgBox.setText("You must start a new game first!");
+        msgBox.exec();
+        return;
+    }
+    else
+    {
+        ui->stackedWidget->setCurrentWidget(ui->gamePage);
+        // Change the board
+        ui->difficultyTextLabel->setText(QString::fromStdString(this->mService.getCurrentDifficulty()));
+        this->chronometerWidget->addSeconds(seconds);
+        this->chronometerWidget->start();
+    }
+}
+
+void MainWindow::saveAndQuit()
+{
+    int seconds = chronometerWidget->getTimeSeconds();
+    this->mService.saveGameToFile(seconds);
+    this->close();
 }

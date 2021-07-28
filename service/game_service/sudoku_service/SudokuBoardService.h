@@ -18,8 +18,13 @@ private:
     SudokuBoard mCurrentBoard;
     SudokuBoard mMaskBoard;
     std::vector<std::unique_ptr<BoardBomb>> bombs;
+    std::string saveFile;
+    std::string currentDifficulty;
 public:
-    explicit SudokuBoardService(SudokuBoardFactory &tSudokuFactory);
+    const std::string &getCurrentDifficulty() const;
+
+public:
+    explicit SudokuBoardService(SudokuBoardFactory &tSudokuFactory, std::string tSaveFile = "");
     // Constructor for the Board Service
     // param tSudokuFactory: Sudoku Factory which is used to get new boards
 
@@ -54,6 +59,10 @@ public:
 
     void bombBoard(int row, int column, int bombType);
     // Bombs a cell at the given row and column with a bomb of the specified type
+
+    int loadGameFromFile();
+
+    void saveGameToFile(int seconds);
 private:
     void markClashingCells();
 };
