@@ -13,6 +13,7 @@ void Chronometer::restart()
 
 QTime Chronometer::getTime()
 {
+    int auxtime = mTimer.elapsed();
     if(isStopped)
         return {elapsedSeconds / 3600, (elapsedSeconds % 3600) / 60, elapsedSeconds % 60};
     else

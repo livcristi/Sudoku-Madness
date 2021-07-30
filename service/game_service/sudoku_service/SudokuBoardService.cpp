@@ -39,7 +39,7 @@ bool SudokuBoardService::checkValidBoard() const
 
 int SudokuBoardService::setBoardCell(int row, int column, int value)
 {
-    if(value <= 0 || value > mCurrentBoard.getSize())
+    if((value <= 0) || (value > mCurrentBoard.getSize() && value != UnassignedCell))
         return InvalidValue;
     if(mMaskBoard.getCellValue(row, column) & OccupiedCell)
         return InvalidCell;

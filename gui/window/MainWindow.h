@@ -37,6 +37,7 @@ private:
     void changeDifficulty(const std::string & difficulty);
     void bombCell(int type);
     void applyDropEffect(QLabel * label, int page = 1);
+    void showHelpDialog();
     void startStopTimer();
     void continueGame();
     void saveAndQuit();

@@ -7,6 +7,7 @@
 #include <QThread>
 #include <iostream>
 #include <QState>
+#include <QIcon>
 
 
 MainWindow::MainWindow(GUIModel & model, SudokuBoardDelegate & delegate, SudokuBoardService & service,
@@ -31,6 +32,7 @@ void MainWindow::gameEnded()
     msgBox.setText("Congratulations! You won the game!");
     msgBox.exec();
     this->mCoinService.addCoins(ui->difficultyTextLabel->text().toStdString(), this->chronometerWidget->getTimeMinutes());
+    this->chronometerWidget->stop();
     ui->coinsLabel->setText("Coins : " + QString::number(this->mCoinService.getCoins()));
 }
 
@@ -47,7 +49,7 @@ void MainWindow::startNewGame()
         ui->difficultyTextLabel->setText(QString::fromStdString(difficulty));
         this->changeDifficulty(difficulty);
         // Begin the chronometer
-        this->chronometerWidget->start();
+        this->chronometerWidget->restart();
     }
 }
 
@@ -90,6 +92,9 @@ void MainWindow::bombCell(int type)
             emit this->mModel.dataChanged(modelIndex, modelIndex);
         }
     }
+
+    if(mService.checkWinner())
+        gameEnded();
 }
 
 void MainWindow::applyDropEffect(QLabel * label, int page)
@@ -114,6 +119,9 @@ void MainWindow::applyDropEffect(QLabel * label, int page)
 
 void MainWindow::setUpGUI()
 {
+    this->setWindowTitle("Sudoku Madness");
+    this->setWindowIcon(QIcon(":/img/data/icon.jpg"));
+
     ui->sudokuTableView->setModel(&mModel);
     ui->sudokuTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->sudokuTableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -122,13 +130,9 @@ void MainWindow::setUpGUI()
     ui->sudokuTableView->setItemDelegate(&mDelegate);
     ui->sudokuTableView->setShowGrid(false);
 
-    QPixmap bkgnd(":/img/data/background.jpg");
-    //QPixmap bkgnd(R"(C:\Users\tereb\OneDrive\Desktop\Github-SM\Sudoku-Madness\data\background.jpg)");
-    bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
-    QPalette palette;
-    palette.setBrush(QPalette::Background, bkgnd);
-    this->setPalette(palette);
-//    this->centralWidget()->setStyleSheet("background-image:url(\":/img/data/background.jpg\"); background-position: center; ");
+    // set the background
+    this->setObjectName("CentralWidget");
+    this->setStyleSheet("QWidget#CentralWidget{background-image:url(\":/img/data/background.jpg\"); background-position: center;}");
 
     ui->coinsLabel->setText("Coins : " + QString::number(this->mCoinService.getCoins()));
 
@@ -177,6 +181,8 @@ void MainWindow::connectSignalAndSlots()
     QObject::connect(ui->saveQuitButton, &QPushButton::clicked, this, &MainWindow::saveAndQuit);
     QObject::connect(ui->continueButton, &QPushButton::clicked, this, &MainWindow::continueGame);
 
+    QObject::connect(ui->helpButton, &QPushButton::clicked, this, &MainWindow::showHelpDialog);
+
     // Start stop button
     QObject::connect(ui->stopStartButton, &QPushButton::clicked, this, &MainWindow::startStopTimer);
 }
@@ -192,6 +198,28 @@ void MainWindow::startStopTimer()
     {
         this->chronometerWidget->start();
     }
+}
+
+
+void MainWindow::showHelpDialog()
+{
+    QMessageBox msgBox;
+    QString helpTextGame;
+    helpTextGame += "The objective of the game is to fill every row, column and grid with unique values ranging from 1 to 9.\n";
+    helpTextGame += "Some cells will already contain values, their count depends on the chosen difficulty.\n";
+    helpTextGame += "When you enter a value in a cell that already exists on a row, column or grid (eg: two 3s on the first row), ";
+    helpTextGame += "then those cells with the equal value will have their text in red. You should avoid this in order to win the game.\n\n";
+
+    QString helpTextBombs;
+    helpTextBombs += "You can also bomb cells by purchasing bombs in the shop on the right of the screen. "
+    "This will lower the amount of unique cells, giving you more options to solve the table.\n";
+    helpTextBombs += "Bombs are bought using coins. You receive coins by completing Sudoku games. The higher the difficulty and lower the time, the more "
+    "coins you will receive.\n";
+    helpTextBombs += "Relax and have fun!";
+
+    msgBox.setText(helpTextGame + helpTextBombs);
+    msgBox.exec();
+    return;
 }
 
 void MainWindow::continueGame()

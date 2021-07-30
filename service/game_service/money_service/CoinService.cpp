@@ -27,11 +27,11 @@ int CoinService::getCoins() const
 
 void CoinService::addCoins(const std::string &difficulty, int time)
 {
-    if(difficulty == "Easy")
+    if(difficulty == "Easy" || difficulty == "easy")
         mCoins += (60 - time <= 0 ? 10 : 60 - time);
-    else if(difficulty == "Medium")
+    else if(difficulty == "Medium" || difficulty == "medium")
         mCoins += (80 - time <= 0 ? 30 : 80 - time);
-    else if(difficulty == "Hard")
+    else if(difficulty == "Hard" || difficulty == "hard")
         mCoins += (100 - time <= 0 ? 50 : 100 - time);
     else
         mCoins += 10;

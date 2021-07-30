@@ -41,15 +41,17 @@ void SudokuBoardDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
 
     if(mService.checkOccupiedCell(row, column) && mService.getCurrentBoard().cellContainsValue(row, column))
     {
-        // todo: see how to put the text over the circle
         painter->save();
-        painter->setBrush(QBrush{QColor{19, 174, 75}});
-        painter->setPen(QPen{QColor{19, 174, 75}});
-        painter->drawEllipse(option.rect);
+        painter->setBrush(QBrush{QColor{40, 170, 11}});
+        painter->setPen(QPen{QColor{40, 170, 11}});
+        painter->drawEllipse(option.rect.center(), int(0.44 * option.rect.width()), int(0.44 * option.rect.height()));
 
         auto cellText = index.data(Qt::DisplayRole);
-        painter->setFont(QFont("Bahnschrift Light SemiCondensed", 13));
-        painter->setPen(QPen{QColor{0, 0, 0}});
+        painter->setFont(QFont("Bahnschrift Light SemiCondensed", 17, 48));
+        if(mService.checkClashingCell(row, column))
+            painter->setPen(QPen{QColor{170, 11, 40}});
+        else
+            painter->setPen(QPen{QColor{0, 0, 0}});
         painter->drawText(option.rect, Qt::AlignCenter, cellText.toString());
 
         painter->restore();

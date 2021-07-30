@@ -11,6 +11,7 @@
 
 #include <QApplication>
 #include <QDir>
+#include <iostream>
 
 // Get the path to the data file
 std::string getDataFile(int type = 1)
@@ -21,19 +22,31 @@ std::string getDataFile(int type = 1)
 //        return R"(C:\Users\tereb\OneDrive\Desktop\Github-SM\Sudoku-Madness\data\coins.txt)";
 //    else
 //        return R"(C:\Users\tereb\OneDrive\Desktop\Github-SM\Sudoku-Madness\data\savefile.txt)";
-    std::string dirPath = QDir::currentPath().toStdString();
-    while(dirPath[dirPath.size() - 1] != '/')
-        dirPath.pop_back();
+//    std::string dirPath = QDir::currentPath().toStdString();
+//    while(dirPath[dirPath.size() - 1] != '/')
+//        dirPath.pop_back();
+//    switch (type) {
+//        case 1:
+//            dirPath += "Sudoku-Madness/data/boards.txt";
+//            break;
+//        case 2:
+//            dirPath += "Sudoku-Madness/data/coins.txt";
+//            break;
+//        default:
+//            dirPath += "Sudoku-Madness/data/savefile.txt";
+//    }
+    std::string dirPath = QCoreApplication::applicationDirPath().toStdString();
     switch (type) {
         case 1:
-            dirPath += "Sudoku-Madness/data/boards.txt";
+            dirPath += "/data/boards.txt";
             break;
         case 2:
-            dirPath += "Sudoku-Madness/data/coins.txt";
+            dirPath += "/data/coins.txt";
             break;
         default:
-            dirPath += "Sudoku-Madness/data/savefile.txt";
+            dirPath += "/data/savefile.txt";
     }
+
     return dirPath;
 }
 
@@ -41,7 +54,7 @@ int main(int argc, char *argv[])
 {
     srand(time(0));
     // Tester::testAll();
-    QApplication a(argc, argv);
+    QApplication app(argc, argv);
 
     SudokuRepository repository(getDataFile());
     SudokuBoardFactory factory(repository);
@@ -55,5 +68,5 @@ int main(int argc, char *argv[])
     mainWindow.show();
 
     mainWindow.show();
-    return a.exec();
+    return app.exec();
 }

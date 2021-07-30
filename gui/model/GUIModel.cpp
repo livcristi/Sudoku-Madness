@@ -36,31 +36,24 @@ QVariant GUIModel::data(const QModelIndex &index, int role) const
     }
     if (role == Qt::FontRole)
     {
-        QFont font("Bahnschrift Light SemiCondensed", 13);
+        QFont font("Bahnschrift Light SemiCondensed", 17);
         return font;
     }
     if (role == Qt::BackgroundRole)
     {
         if(value == BombedCell)
             return QBrush{ QColor{100, 100, 100}};
-        if(mService.checkClashingCell(row, column))
-            return QBrush{QColor{232, 53, 53}};
-        if(mService.checkOccupiedCell(row, column))
-            return QBrush{ QColor{255, 255, 255}};
-        if(value != OccupiedCell)
-            return QBrush{ QColor{230, 230, 230}};
-        else
-            return QBrush{ QColor{240, 240, 240}};
+        return QBrush{ QColor{11, 170, 61, 100} };
     }
     if (role == Qt::ForegroundRole)
     {
-        if(mService.checkOccupiedCell(row, column))
+        if(mService.checkClashingCell(row, column))
         {
-            return QBrush{ QColor{52, 22, 97}};
+            return QBrush{ QColor{170, 11, 40} };
         }
         else
         {
-            return QBrush{QColor{78, 145, 207}};
+            return QBrush{ QColor{0, 0, 0} };
         }
     }
     if (role == Qt::TextAlignmentRole)
@@ -74,6 +67,8 @@ bool GUIModel::setData(const QModelIndex &index, const QVariant &value, int role
     int row = index.row();
     int column = index.column();
     int userValue = value.toInt();
+    if(value.toString().isEmpty())
+        userValue = UnassignedCell;
 
     if(role == Qt::EditRole)
     {
